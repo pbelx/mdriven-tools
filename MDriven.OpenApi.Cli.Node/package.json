@@ -1,0 +1,17 @@
+{
+  "name": "mdriven-openapi",
+  "version": "0.1.0",
+  "description": "Generate OpenAPI from MDriven RestAllowed ViewModels",
+  "type": "module",
+  "bin": {
+    "mdriven-openapi": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
