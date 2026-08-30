@@ -33,14 +33,14 @@ try {
   const modelFolder = resolve(options.modelFolder);
   const files = await findFiles(modelFolder);
   const spanFiles = files.filter((file) => file.endsWith(".spans"));
-  const packages = parsePackages(await readPackageFiles(files));
+  const modelClasses = parsePackages(await readPackageFiles(files));
   const candidates = [];
 
   for (const file of spanFiles) {
     const xml = await readFile(file, "utf8");
-    const span = parseSpanSummary(xml, file);
+    const span = parseSpanSummary(xml, file, modelClasses);
     if (!span?.className) continue;
-    const attributes = packages.get(span.classId) ?? packages.get(span.className) ?? [];
+    const attributes = modelClasses.byKey.get(span.classId) ?? modelClasses.byKey.get(span.className) ?? [];
     candidates.push({ file, xml, span, attributes });
   }
 
@@ -48,7 +48,8 @@ try {
 
   if (options.list) {
     for (const candidate of candidates) {
-      console.log(`${candidate.span.name}\t${candidate.span.className}\t${candidate.file}`);
+      const source = candidate.span.classInferred ? "inferred-from-self" : "rooted";
+      console.log(`${candidate.span.name}\t${candidate.span.className}\t${source}\t${candidate.file}`);
     }
     process.exit(0);
   }
@@ -140,35 +141,90 @@ async function readPackageFiles(files) {
 }
 
 function parsePackages(packageXmls) {
-  const result = new Map();
+  const byKey = new Map();
+  const classes = [];
   for (const xml of packageXmls) {
     for (const classMatch of xml.matchAll(/<Class\b([^>]*)>([\s\S]*?)<\/Class>/gi)) {
       const attrs = parseAttributes(classMatch[1]);
       const attributes = [...classMatch[2].matchAll(/<Attribute\b([^>]*)>/gi)]
         .map((match) => parseAttributes(match[1]).Name)
         .filter(Boolean);
-      if (attrs.id) result.set(attrs.id, attributes);
-      if (attrs.Name) result.set(attrs.Name, attributes);
+      if (!attrs.Name) continue;
+      const modelClass = { id: attrs.id, name: attrs.Name, attributes };
+      classes.push(modelClass);
+      if (attrs.id) byKey.set(attrs.id, attributes);
+      byKey.set(attrs.Name, attributes);
     }
   }
-  return result;
+  return { byKey, classes };
 }
 
-function parseSpanSummary(xml, file) {
+function parseSpanSummary(xml, file, modelClasses) {
   const spanTag = xml.match(/<Span\b([^>]*)>/i)?.[1];
   if (!spanTag) return null;
   const attrs = parseAttributes(spanTag);
-  const beforeOwnedColumns = xml.split(/<OwnedColumns>/i)[0];
-  const classTag = beforeOwnedColumns.match(/<Class>\s*<Class\b([^>]*)\/?>/i)?.[1];
-  const classAttrs = classTag ? parseAttributes(classTag) : {};
+  const classAttrs = findRootClassAttributes(xml);
+  const inferredClass = classAttrs.Name ? null : inferClassFromSelfExpressions(xml, modelClasses.classes);
   return {
     file,
     name: attrs.Name,
     id: attrs.id,
-    className: classAttrs.Name,
-    classId: classAttrs.idref,
+    className: classAttrs.Name ?? inferredClass?.name,
+    classId: classAttrs.idref ?? inferredClass?.id,
+    classInferred: !classAttrs.Name && Boolean(inferredClass),
     restAllowed: isRestAllowed(xml)
   };
+}
+
+function inferClassFromSelfExpressions(xml, classes) {
+  const selfAttributes = new Set();
+  for (const match of xml.matchAll(/\bself\.([A-Za-z_][A-Za-z0-9_]*)/g)) {
+    selfAttributes.add(match[1]);
+  }
+  if (selfAttributes.size === 0) return null;
+
+  const scored = classes
+    .map((modelClass) => ({
+      modelClass,
+      score: modelClass.attributes.filter((attribute) => selfAttributes.has(attribute)).length
+    }))
+    .filter((entry) => entry.score > 0)
+    .sort((left, right) => right.score - left.score);
+
+  if (scored.length === 0) return null;
+  if (scored.length > 1 && scored[0].score === scored[1].score) return null;
+  return scored[0].modelClass;
+}
+
+function findRootClassAttributes(xml) {
+  const spanOpen = xml.match(/<Span\b[^>]*>/i);
+  if (!spanOpen) return {};
+
+  const start = spanOpen.index + spanOpen[0].length;
+  const boundaries = [
+    findTopLevelNestingIndex(xml),
+    findTopLevelOwnedColumnsIndex(xml)
+  ].filter((index) => index >= 0);
+  const end = boundaries.length > 0 ? Math.min(...boundaries) : xml.length;
+  const rootHeader = xml.slice(start, end);
+  const classTag = rootHeader.match(/<Class>\s*<Class\b([^>]*)\/?>/i)?.[1];
+  return classTag ? parseAttributes(classTag) : {};
+}
+
+function findTopLevelNestingIndex(xml) {
+  const tokenPattern = /<Nesting\b[^>]*>|<\/Nesting>/gi;
+  let depth = 0;
+  let match;
+  while ((match = tokenPattern.exec(xml)) !== null) {
+    const token = match[0];
+    if (/^<\/Nesting>/i.test(token)) {
+      depth = Math.max(0, depth - 1);
+    } else if (/^<Nesting\b/i.test(token)) {
+      if (depth === 0 && !token.endsWith("/>")) return match.index;
+      if (!token.endsWith("/>")) depth += 1;
+    }
+  }
+  return -1;
 }
 
 function selectCandidates(candidates, options) {
@@ -213,6 +269,7 @@ function generateCrudSpan(xml, span, attributes, primaryAttribute) {
   ]);
 
   let next = removeGeneratedCrudBlocks(clean, { nestingName, primaryAttribute, createColumnName });
+  next = ensureRootClass(next, span);
   next = ensureRestAllowed(next);
   next = ensureSpanVariable(next, variableName, "String");
 
@@ -517,6 +574,19 @@ function stableExistingColumnIdInNesting(xml, nestingName, columnName) {
   return null;
 }
 
+function ensureRootClass(xml, span) {
+  if (findRootClassAttributes(xml).Name) return xml;
+  if (!span.className || !span.classId) throw new Error(`Could not root ${span.name}: missing inferred class id.`);
+
+  const rootClass = `  <Class>
+    <Class
+      Name="${escapeXml(span.className)}"
+      idref="${escapeXml(span.classId)}" />
+  </Class>
+`;
+  return xml.replace(/<Span\b[^>]*>/i, `$&\n${rootClass}`);
+}
+
 function ensureRestAllowed(xml) {
   if (isRestAllowed(xml)) return xml;
   const taggedValue = `  <TaggedValue>
@@ -562,6 +632,7 @@ function normalizeGeneratedWhitespace(value) {
     .replace(/\r\n/g, "\n")
     .replace(/[ \t]+$/gm, "")
     .replace(/\n{3,}/g, "\n\n")
+    .replace(/\n{2,}(\s*<Nesting>)/g, "\n$1")
     .replace(/\n{2,}(\s*<\/OwnedColumns>)/g, "\n$1")
     .trim();
 }

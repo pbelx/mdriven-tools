@@ -46,6 +46,7 @@ For each selected span, the tool:
 
 - Adds `Eco.RestAllowed=True` if missing.
 - Infers the root class from the span.
+- If the span has no explicit root class, infers one from `self.{Attribute}` expressions when the match is unambiguous, then writes the missing root `<Class>` block.
 - Reads class attributes from `.ecopkg`.
 - Chooses `Name` as the primary CRUD field when available, otherwise the first class attribute.
 - Adds a `DisplayMode` diagnostic column.
