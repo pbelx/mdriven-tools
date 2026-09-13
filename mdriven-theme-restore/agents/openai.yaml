@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Theme Restore"
+  short_description: "Diagnose and restore MDriven Turnkey themes"
+  default_prompt: "Use $mdriven-theme-restore to diagnose and safely restore my local MDriven Turnkey default theme."
