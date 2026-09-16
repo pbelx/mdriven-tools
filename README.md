@@ -17,7 +17,7 @@ mdriven-tools/
 │   ├── SKILL.md
 │   ├── scripts/eval.mjs
 │   └── scripts/eval_mdriven.ps1
-├── mdriven-list-tools/        # Live tool discovery
+├── mdriven-list-tools/        # Live MCP tool and embedded-capability inspection
 │   ├── SKILL.md
 │   ├── scripts/list_tools.mjs
 │   └── scripts/list_mdriven_tools.ps1
@@ -62,7 +62,7 @@ node mdriven-eval/scripts/eval.mjs -p 9999 "Class.allinstances->collect(c | c.Na
 node mdriven-eval/scripts/eval.mjs -p 9999 -a "Class.allinstances->select(c | c.Name = 'OldClass')->first.delete"
 ```
 
-### 6. List Exposed MCP Tools
+### 6. Inspect MCP Tools and Embedded Capabilities
 ```bash
 node mdriven-list-tools/scripts/list_tools.mjs -p 9999
 ```
