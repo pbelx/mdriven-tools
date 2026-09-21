@@ -70,6 +70,64 @@ self.RestoreAssociations()
 
 `RestoreAssociations()` creates the missing diagram connection objects. It cannot reconstruct semantic associations when `Association.allinstances` is empty.
 
+### Creating associations that survive save and reopen
+
+An `Association` created through Action Language must be owned by the model package. Creating the association and its two ends without package ownership can make a line appear temporarily, but saving reports errors such as:
+
+```text
+AssociationEnd InvoiceLine.Invoice not part of association.
+Probably due to incorrect or missing UmlElement attribute
+```
+
+The relationships then disappear when the model is reopened. The required ownership step is:
+
+```ocl
+pkg.OwnedElement.Add(assoc)
+```
+
+A complete creation pattern is:
+
+```ocl
+let pkg=Package.allinstances->first in
+(
+  let left=Class.allinstances->select(c|c.Name='Invoice')->first in
+  (
+    let right=Class.allinstances->select(c|c.Name='InvoiceLine')->first in
+    (
+      let assoc=Association.Create in
+      (
+        pkg.OwnedElement.Add(assoc);
+        assoc.AssociationEnd.Add(AssociationEnd.Create);
+        assoc.AssociationEnd.Add(AssociationEnd.Create);
+        assoc.AssociationEnd.at0(0).Participant:=left;
+        assoc.AssociationEnd.at0(0).Name:='Invoice';
+        assoc.AssociationEnd.at0(0).Multiplicity:='1';
+        assoc.AssociationEnd.at0(1).Participant:=right;
+        assoc.AssociationEnd.at0(1).Name:='Lines';
+        assoc.AssociationEnd.at0(1).Multiplicity:='0..*'
+      )
+    )
+  )
+)
+```
+
+When repairing a model whose prototype-data `ModelInfo` already references association-end IDs, assign those existing IDs to the recreated ends or update the prototype-data metadata. Otherwise, prototype data can point to obsolete model elements.
+
+Before saving, verify that every association has a package and exactly two ends:
+
+```ocl
+Association.allinstances
+  ->collect(a|a.Package_.Name.concat('|').concat(a.AssociationEnd->size.asString))
+```
+
+Each result should resemble `Package1|2`. Then restore the visual connections:
+
+```ocl
+Diagram.allinstances->first.RestoreAssociations()
+```
+
+Finally, save with `Ctrl+S`, reopen the model, and verify that `Association.allinstances->size` and `AssociationEndConnection.allinstances->size` still have the expected values. A visible line alone does not prove that the semantic association is persistable.
+
 After an MCP mutation, explicitly save the model in Designer with `Ctrl+S`.
 
 ## Evaluator response envelope

@@ -23,4 +23,6 @@ Both scripts list the top-level MCP tools and use the read-only OCL evaluator to
 
 Older Designer builds may expose the evaluator tools while lacking some embedded functions. Report an unavailable probe without treating it as a connection failure.
 
+When creating semantic associations through Action Language, add every new `Association` to its owning package with `pkg.OwnedElement.Add(assoc)`. Without package ownership, a line may appear temporarily but saving can report an incorrect or missing `UmlElement`, and the relationship can disappear after reopening. Preserve existing association-end IDs when prototype-data `ModelInfo` references them.
+
 For the verified capability notes, response format, Designer Vibe calls, and the distinction between semantic associations and visible diagram lines, read [references/MDRIVEN_DESIGNER_CAPABILITIES.md](references/MDRIVEN_DESIGNER_CAPABILITIES.md).
