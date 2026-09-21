@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Wiki"
+  short_description: "Search and read the MDriven wiki through its public MCP endpoint"
+  default_prompt: "Use the public MDriven Wiki MCP endpoint to research this MDriven topic."
