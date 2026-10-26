@@ -1,5 +1,15 @@
 # MDriven MCP Tools Suite
 
+## State machine inspection
+
+The `mdriven-state-machine` skill covers lifecycle modeling, transition and trigger troubleshooting, guards/effects, and generated UI action wiring. Its standalone PowerShell inspector is read-only:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File mdriven-state-machine/scripts/inspect_state_machine.ps1 -Port 8888 -ClassName Task
+```
+
+Read `mdriven-state-machine/SKILL.md` before creating or repairing state machines.
+
 A collection of fast, lightweight Node.js (Node 18+) & PowerShell tools for interacting with and refactoring MDriven Designer models via MCP.
 
 ---

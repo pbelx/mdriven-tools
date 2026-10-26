@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven State Machines"
+  short_description: "Inspect and repair MDriven lifecycle workflows"
+  default_prompt: "Use $mdriven-state-machine to inspect my MDriven state machine and check its transitions and UI trigger actions."
