@@ -73,7 +73,7 @@ async function main() {
     console.log(`  ✓ Updated ${updatedCols} Column expression(s)`);
 
     // 6. Validate Model Errors
-    const checkRes = await client.evaluateOCL('MCPServerInfo.GetOverViewOfCapabilitiesForOCL');
+    const checkRes = await client.evaluateOCL('Class.allinstances->size');
     const errors = checkRes.errors || [];
 
     if (errors.length === 0) {

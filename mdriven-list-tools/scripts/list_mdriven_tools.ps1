@@ -6,10 +6,15 @@ param(
 
     [string]$HostName = 'localhost',
 
-    [string]$Route = '/mcp/api'
+    [string]$Route = '/mcp/api',
+
+    [switch]$ToolsOnly,
+    [switch]$Capabilities,
+    [switch]$Wiki
 )
 
 $ErrorActionPreference = 'Stop'
+if ($ToolsOnly -and ($Capabilities -or $Wiki)) { throw '-ToolsOnly cannot be combined with probes.' }
 
 if (-not $Route.StartsWith('/')) {
     $Route = '/' + $Route
@@ -39,7 +44,7 @@ function Invoke-OclCapabilityProbe {
         [Parameter(Mandatory = $true)]
         [string]$Expression,
 
-        [int]$PreviewLength = 600
+        [int]$PreviewLength = 240
     )
 
     try {
@@ -68,6 +73,8 @@ function Invoke-OclCapabilityProbe {
                 preview = $null
             }
         }
+
+        if ($data.result.isError) { throw 'MCP evaluator tool failed.' }
 
         $textItem = @($data.result.content | Where-Object { $_.text } | Select-Object -First 1)
         if (-not $textItem) {
@@ -166,10 +173,13 @@ try {
     $script:probeIndex = 0
     $capabilityProbes = @()
 
-    if ($oclToolAvailable) {
+    if (($Capabilities -or $Wiki) -and -not $oclToolAvailable) { throw 'Read-only evaluator not available for probes.' }
+    if ($Capabilities) {
         $capabilityProbes += Invoke-OclCapabilityProbe -Name 'OCL overview' -Expression 'MCPServerInfo.GetOverViewOfCapabilitiesForOCL'
         $capabilityProbes += Invoke-OclCapabilityProbe -Name 'Action Language overview' -Expression 'MCPServerInfo.GetOverViewOfCapabilitiesForActionLanguage'
         $capabilityProbes += Invoke-OclCapabilityProbe -Name 'MetaModelMetaInfo' -Expression "MCPServerInfo.MetaModelMetaInfo('Attribute')"
+    }
+    if ($Wiki) {
         $capabilityProbes += Invoke-OclCapabilityProbe -Name 'MDriven Wiki search' -Expression "MCPServerInfo.WikiSearch('OpenDocument report')"
         $capabilityProbes += Invoke-OclCapabilityProbe -Name 'MDriven Wiki fetch' -Expression "MCPServerInfo.WikiFetch('Documentation:MCP')"
     }
@@ -181,7 +191,7 @@ try {
         protocolVersion = $initializeData.result.protocolVersion
         tools = $tools
         embeddedCapabilities = $capabilityProbes
-    } | ConvertTo-Json -Depth 20
+    } | ConvertTo-Json -Depth 20 -Compress
 }
 catch {
     Write-Error "Unable to inspect MDriven MCP capabilities at ${uri}: $($_.Exception.Message)"

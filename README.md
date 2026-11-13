@@ -85,3 +85,25 @@ powershell -NoProfile -ExecutionPolicy Bypass -File mdriven-theme-restore/script
 # Recover the verified default stylesheet from theme-default-old.css
 powershell -NoProfile -ExecutionPolicy Bypass -File mdriven-theme-restore/scripts/restore_mdriven_theme.ps1 -Repair -Port 8183
 ```
+
+## Efficient AI usage
+
+The Node evaluator returns compact JSON without duplicated raw results or echoed expressions. Errors and created-object IDs remain visible. Use `--debug` for the complete nested response; the PowerShell evaluator offers `-RawResponse`.
+
+Execute related expressions over one initialized session:
+
+```bash
+node mdriven-eval/scripts/eval.mjs -p 9999 --batch-file queries.json
+```
+
+`queries.json` is an array of objects with `expression` and optional `action`, `context`, and `returnAggregates` fields. `--batch-file -` reads the same JSON from stdin. Jobs run in order and stop at the first failure. Completed mutations are not rolled back; inspect the partial-results report before retrying. See [evaluation usage](mdriven-eval/SKILL.md).
+
+Discovery now lists tools only by default. Add `--capabilities` for local evaluator capabilities and `--wiki` for wiki search/fetch probes. Combine both for full inspection. The PowerShell equivalents are `-Capabilities` and `-Wiki`.
+
+Expression and tool errors produce a nonzero exit code, including when called by the refactor and inspection scripts. Existing model validation errors remain in successful evaluator responses for the caller to assess. Doctor uses lightweight count queries instead of fetching capability documentation and variable details.
+
+Run the dependency-free regression suite with Node 18+:
+
+```bash
+node --test tests/mcp.test.mjs
+```

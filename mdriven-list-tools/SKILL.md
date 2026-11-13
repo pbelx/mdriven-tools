@@ -15,7 +15,9 @@ node .agents/skills/mdriven-list-tools/scripts/list_tools.mjs -p <port>
 
 (Fallback PowerShell: `powershell -NoProfile -ExecutionPolicy Bypass -File .agents/skills/mdriven-list-tools/scripts/list_mdriven_tools.ps1 -Port <port>`)
 
-Both scripts list the top-level MCP tools and use the read-only OCL evaluator to probe:
+Both scripts list top-level tools only by default. Add `--capabilities` (PowerShell `-Capabilities`) for local capability probes, or `--wiki` (`-Wiki`) for wiki probes. Combine both for the previous full inspection; `--tools-only` (`-ToolsOnly`) explicitly excludes probes.
+
+Optional probes cover:
 
 - OCL and Action Language capability overviews
 - `MetaModelMetaInfo`

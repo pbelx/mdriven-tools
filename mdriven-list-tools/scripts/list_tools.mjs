@@ -1,72 +1,50 @@
 #!/usr/bin/env node
 import { MDrivenClient } from '../../_common/mdriven-client.mjs';
 
-function parseArgs() {
-  const args = process.argv.slice(2);
-  let port = 9999;
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '-p' || args[i] === '--port') port = parseInt(args[++i], 10);
-  }
-  return { port };
-}
-
 async function main() {
-  const { port } = parseArgs();
-  const client = new MDrivenClient({ port });
-
-  try {
-    const serverInfo = await client.connect();
-    const tools = await client.listTools();
-
-    console.log(`\nMDriven MCP Server on port ${port}:`);
-    console.log(`   Name: ${serverInfo?.name || 'Unknown'}`);
-    console.log(`   Version: ${serverInfo?.version || 'Unknown'}`);
-    console.log(`   Protocol: ${client.protocolVersion}`);
-    console.log(`\nAvailable Tools (${tools.length}):`);
-
-    tools.forEach((tool, index) => {
-      console.log(`\n  ${index + 1}. ${tool.name}`);
-      if (tool.description) {
-        console.log(`     Description: ${tool.description.replace(/\r?\n/g, ' ').slice(0, 140)}...`);
-      }
-    });
-
-    const oclToolAvailable = tools.some(
-      (tool) => tool.name === 'MCPTool_MDrivenDesigner_EvaluateOCLOnMetaModel',
-    );
-
-    if (oclToolAvailable) {
-      const probes = [
-        ['OCL overview', 'MCPServerInfo.GetOverViewOfCapabilitiesForOCL'],
-        ['Action Language overview', 'MCPServerInfo.GetOverViewOfCapabilitiesForActionLanguage'],
-        ['MetaModelMetaInfo', "MCPServerInfo.MetaModelMetaInfo('Attribute')"],
-        ['MDriven Wiki search', "MCPServerInfo.WikiSearch('OpenDocument report')"],
-        ['MDriven Wiki fetch', "MCPServerInfo.WikiFetch('Documentation:MCP')"],
-      ];
-
-      console.log('\nEmbedded Capabilities:');
-      for (const [name, expression] of probes) {
-        try {
-          const result = await client.evaluateOCL(expression);
-          if (result.expressionError) {
-            console.log(`  UNAVAILABLE ${name}: ${result.expressionError}`);
-            continue;
-          }
-
-          const value = String(result.result ?? '');
-          const preview = value.length > 240 ? `${value.slice(0, 240)}...` : value;
-          console.log(`  OK ${name}: ${preview.replace(/\r?\n/g, ' ')}`);
-        } catch (error) {
-          console.log(`  UNAVAILABLE ${name}: ${error.message}`);
-        }
-      }
-    }
-
-    console.log('');
-  } catch (error) {
-    console.error(`Failed to inspect capabilities: ${error.message}`);
-    process.exit(1);
+  const args = process.argv.slice(2);
+  let port = 9999, capabilities = false, wiki = false, toolsOnly = false;
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '-p' || args[i] === '--port') port = Number(args[++i]);
+    else if (args[i] === '--capabilities') capabilities = true;
+    else if (args[i] === '--wiki') wiki = true;
+    else if (args[i] === '--tools-only') toolsOnly = true;
+    else if (args[i] === '--help' || args[i] === '-h') {
+      console.log('Usage: node list_tools.mjs [-p port] [--tools-only | --capabilities] [--wiki]');
+      return;
+    } else throw new Error(`Unknown argument: ${args[i]}`);
   }
+  if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invalid port');
+  if (toolsOnly && (capabilities || wiki)) throw new Error('--tools-only cannot be combined with probes');
+  const client = new MDrivenClient({ port });
+  const tools = await client.listTools();
+  const report = { server: client.serverInfo, protocol: client.protocolVersion, tools: tools.map(tool => ({ name: tool.name, description: tool.description?.replace(/\r?\n/g, ' ').slice(0, 140) })) };
+  if (capabilities || wiki) {
+    if (!tools.some(tool => tool.name === 'MCPTool_MDrivenDesigner_EvaluateOCLOnMetaModel')) throw new Error('Read-only evaluator not available for probes');
+    const probes = [
+      ...(capabilities ? [
+        ['ocl', 'MCPServerInfo.GetOverViewOfCapabilitiesForOCL'],
+        ['action', 'MCPServerInfo.GetOverViewOfCapabilitiesForActionLanguage'],
+        ['metadata', "MCPServerInfo.MetaModelMetaInfo('Attribute')"],
+      ] : []),
+      ...(wiki ? [
+        ['wikiSearch', "MCPServerInfo.WikiSearch('OpenDocument report')"],
+        ['wikiFetch', "MCPServerInfo.WikiFetch('Documentation:MCP')"],
+      ] : []),
+    ];
+    report.probes = {};
+    for (const [name, expression] of probes) {
+      try {
+        const result = await client.evaluateOCL(expression);
+        const value = typeof result.result === 'string' ? result.result : JSON.stringify(result.result) ?? '';
+        report.probes[name] = { available: true, preview: value.slice(0, 240), truncated: value.length > 240 };
+      } catch (error) { report.probes[name] = { available: false, error: error.message }; }
+    }
+  }
+  console.log(JSON.stringify(report));
 }
 
-main();
+main().catch(error => {
+  console.error(JSON.stringify({ ok: false, error: error.message }));
+  process.exitCode = 1;
+});

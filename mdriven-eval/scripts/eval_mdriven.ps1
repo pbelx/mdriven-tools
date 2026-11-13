@@ -15,7 +15,9 @@ param(
 
     [string]$HostName = 'localhost',
 
-    [string]$Route = '/mcp/api'
+    [string]$Route = '/mcp/api',
+
+    [switch]$RawResponse
 )
 
 $ErrorActionPreference = 'Stop'
@@ -99,17 +101,20 @@ try {
     }
 
     $result = $callData.result
-    if ($result.content) {
-        foreach ($item in $result.content) {
-            if ($item.text) {
-                Write-Output $item.text
-            } else {
-                $item | ConvertTo-Json -Depth 10
-            }
-        }
-    } else {
-        $result | ConvertTo-Json -Depth 10
-    }
+    if ($result.isError) { throw 'MCP evaluator tool failed.' }
+    $textItem = @($result.content | Where-Object { $_.text } | Select-Object -First 1)
+    if (-not $textItem) { throw 'Missing evaluator text response.' }
+    $outer = $textItem[0].text | ConvertFrom-Json
+    $inner = if ($null -ne $outer.RawJson) { $outer.RawJson | ConvertFrom-Json } else { $outer }
+    if (-not $inner.PSObject.Properties['resultfromexpression'] -and -not $inner.expressionError) { throw 'Invalid evaluator response envelope.' }
+    $errors = @($inner.modelwideErrors | Where-Object { $null -ne $_ })
+    $report = [ordered]@{ ok=(-not [bool]$inner.expressionError); result=$inner.resultfromexpression; errors=$errors; modelErrorCount=$errors.Count }
+    if ($inner.expressionError) { $report['expressionError'] = $inner.expressionError }
+    $created = @($inner.createdobjects | Where-Object { $null -ne $_ })
+    if ($created.Count) { $report['createdObjects'] = $created }
+    if ($RawResponse) { $report['expression'] = $Expression; $report['rawInner'] = $inner }
+    $report | ConvertTo-Json -Depth 100 -Compress
+    if ($inner.expressionError) { throw "Expression error: $($inner.expressionError)" }
 }
 catch {
     Write-Error "Unable to evaluate on MDriven MCP at ${uri}: $($_.Exception.Message)"

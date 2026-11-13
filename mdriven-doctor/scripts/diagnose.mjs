@@ -17,23 +17,20 @@ async function main() {
   try {
     console.log(`\n🔍 Running MDriven Doctor on port ${port}...\n`);
 
-    // 1. Check Capabilities & Model-wide Errors
-    const overview = await client.evaluateOCL('MCPServerInfo.GetOverViewOfCapabilitiesForOCL');
-    const modelErrors = overview.errors || [];
-
-    // 2. Fetch Classes
+    // Fetch classes and model errors in one response.
     const classesRes = await client.evaluateOCL('Class.allinstances->collect(c | c.Name)');
+    const modelErrors = classesRes.errors || [];
     const classes = Array.isArray(classesRes.result) ? classesRes.result : [];
 
     // 3. Fetch ViewModels
     const spansRes = await client.evaluateOCL('Span.allinstances->collect(s | s.Name)');
     const viewModels = Array.isArray(spansRes.result) ? spansRes.result : [];
 
-    // 4. Check SpanVariables with unmatched types
+    // 4. Count variables without fetching their details.
     const variablesRes = await client.evaluateOCL(
-      "Span.allinstances.SpanVariables->collect(v | v.Span.Name + '::' + v.Name + ' (' + v.TypeName + ')')"
+      'Span.allinstances.SpanVariables->size'
     );
-    const variables = Array.isArray(variablesRes.result) ? variablesRes.result : [];
+    const variableCount = variablesRes.result;
 
     // 5. Check empty/numbered default classes (e.g. Class1)
     const suspiciousClasses = classes.filter(c => /^Class\d+$/i.test(c) || /^NewClass/i.test(c));
@@ -49,7 +46,7 @@ async function main() {
       modelErrorsCount: modelErrors.length,
       modelErrors,
       suspiciousClasses,
-      totalVariablesCount: variables.length,
+      totalVariablesCount: variableCount,
     };
 
     console.log(`Status: ${report.health === 'HEALTHY' ? '✅ HEALTHY' : '❌ ERRORS FOUND'}`);
