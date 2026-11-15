@@ -3,10 +3,11 @@ import { MDrivenClient } from '../../_common/mdriven-client.mjs';
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { port: 9999, from: '', to: '' };
+  const opts = { port: 9999, host: 'localhost', from: '', to: '' };
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
     if (a === '-p' || a === '--port') opts.port = parseInt(args[++i], 10);
+    else if (a === '-h' || a === '--host') opts.host = args[++i];
     else if (a === '-f' || a === '--from' || a === '--old') opts.from = args[++i];
     else if (a === '-t' || a === '--to' || a === '--new') opts.to = args[++i];
   }
@@ -14,13 +15,13 @@ function parseArgs() {
 }
 
 async function main() {
-  const { port, from, to } = parseArgs();
+  const { port, host, from, to } = parseArgs();
   if (!from || !to) {
-    console.error('Usage: node refactor.mjs [-p <port>] --from <OldName> --to <NewName>');
+    console.error('Usage: node refactor.mjs [-h <host>] [-p <port>] --from <OldName> --to <NewName>');
     process.exit(1);
   }
 
-  const client = new MDrivenClient({ port });
+  const client = new MDrivenClient({ port, host });
 
   try {
     console.log(`\n🔄 Refactoring references from "${from}" -> "${to}" on port ${port}...\n`);
