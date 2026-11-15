@@ -34,6 +34,15 @@ mdriven-tools/
 ├── mdriven-refactor/          # Batch symbol & element refactoring
 │   ├── SKILL.md
 │   └── scripts/refactor.mjs
+├── mdriven-seeker/            # Seeker search criteria: list, add, repair
+│   ├── SKILL.md
+│   └── scripts/seeker.mjs
+├── mdriven-filter-page/       # Filter/dashboard pages: dropdowns, dates, KPI cards
+│   └── SKILL.md
+├── mdriven-icons/             # Material Icons on buttons, tabs and cards
+│   └── SKILL.md
+├── mdriven-actions-navigation/ # Save, cancel, navigate; unsaved-changes popups
+│   └── SKILL.md
 └── mdriven-viewmodel/         # ViewModel structure & expression inspector
     ├── SKILL.md
     └── scripts/viewmodel.mjs
@@ -76,6 +85,19 @@ node mdriven-eval/scripts/eval.mjs -p 9999 -a "Class.allinstances->select(c | c.
 ```bash
 node mdriven-list-tools/scripts/list_tools.mjs -p 9999
 ```
+
+### Seeker search criteria
+```bash
+node mdriven-seeker/scripts/seeker.mjs -p 9999 --list MySeeker
+node mdriven-seeker/scripts/seeker.mjs -p 9999 --add MySeeker --path Farmer.FarmerName
+node mdriven-seeker/scripts/seeker.mjs -p 9999 --repair MySeeker
+```
+
+### UI guidance skills (no scripts)
+
+- `mdriven-filter-page`: build a list or dashboard page with variable-bound dropdowns, date ranges, combined live filtering, totals and KPI cards.
+- `mdriven-icons`: add built-in Material Icons with the `Icon` and `IconPosition` tagged values, and map mockup icons to Material names.
+- `mdriven-actions-navigation`: wire Review/Confirm/Cancel buttons, save before navigating, avoid unsaved-changes popups and empty records, and auto-number references.
 
 ### 7. Diagnose or Restore the Turnkey Theme
 ```powershell

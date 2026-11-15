@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Filter Pages"
+  short_description: "Build list pages with dropdown filters, KPI cards and icons"
+  default_prompt: "Use $mdriven-filter-page to build a page with state, date and dropdown filters, summary cards and a results grid."

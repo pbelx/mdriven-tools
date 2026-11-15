@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Icons"
+  short_description: "Add Material Icons to Turnkey buttons, tabs and cards with tagged values"
+  default_prompt: "Use $mdriven-icons to add icons to my page's buttons and KPI cards like the ones in my mockup."

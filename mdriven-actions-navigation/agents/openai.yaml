@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Actions & Navigation"
+  short_description: "Wire save, cancel and navigation buttons; fix unsaved-changes popups"
+  default_prompt: "Use $mdriven-actions-navigation to make my entry page's Cancel and Confirm buttons save and navigate without unsaved-changes popups."

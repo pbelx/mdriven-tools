@@ -21,7 +21,11 @@ node .agents/skills/mdriven-eval/scripts/eval.mjs -p <port> "<OCL_Expression>"
 node .agents/skills/mdriven-eval/scripts/eval.mjs -p <port> -a "<Action_Expression>"
 ```
 
-(Fallback PowerShell: `powershell -NoProfile -ExecutionPolicy Bypass -File .agents/skills/mdriven-eval/scripts/eval_mdriven.ps1 -Port <port> -Expression "<expression>"`)
+(Fallback PowerShell: `powershell -NoProfile -ExecutionPolicy Bypass -File .agents/skills/mdriven-eval/scripts/eval_mdriven.ps1 -Port <port> -Expression "<expression>"`; add `-Action` for Action Language.)
+
+Node's `fetch` refuses ports it treats as unsafe, including 6665-6669, and reports only `fetch failed`. If `curl` reaches the port but the Node script fails, use the PowerShell script for that port.
+
+Several ports can reach the same Designer, and a port can keep serving a previously opened model. Before writing, confirm which model a port serves (for example, count `Span.allinstances` or look for a known ViewModel) and compare it with the Designer window title.
 
 ## Efficient evaluation
 

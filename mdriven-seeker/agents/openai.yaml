@@ -1,0 +1,4 @@
+interface:
+  display_name: "MDriven Seekers"
+  short_description: "Inspect, add and repair MDriven seeker search criteria"
+  default_prompt: "Use $mdriven-seeker to list my seeker's search criteria and add one for a field it does not search yet."

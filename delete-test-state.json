@@ -1,0 +1,344 @@
+{
+  "base": "http://localhost:8182",
+  "marker": "Codex deletion test 55295047-3a3c-454f-884a-a43f408f12c1",
+  "before": [
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/First-HyPrSpace-Baguette-One-Launch-Slips-to-2027.webp",
+      "published_at": "2026-09-12T05:00:42Z",
+      "title": "First HyPrSpace Baguette One Launch Slips to 2027",
+      "summary": "French launch startup HyPrSpace announced on 11 September that it has pushed the inaugural flight of its Baguette One suborbital rocket to 2027. In June 2025, HyPrSpace announced that it would launch the inaugural flight of its Baguette One rocket in 2026 from a French Directorate General of Armaments (DGA) test facility on the French […]\nThe post First HyPrSpace Baguette One Launch Slips to 2027 appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/first-hyprspace-baguette-one-launch-slips-to-2027/",
+      "newsid": "3!1"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/citizen-science/highlights/2026/backgroundimage.001-Aimee_Schechter.jpg",
+      "published_at": "2026-09-11T19:48:09Z",
+      "title": "Help Refine Data from Space Telescopes with Artifact InSPECtor",
+      "summary": "How do scientists studying space with data from a telescope hundreds of thousands of miles away know that what they are seeing is real? A new NASA project, Artifact InSPECtor, invites you to find out – and by doing so, to help missions like Euclid and NASA’s new Nancy Grace Roman Space Telescope answer fundamental […]",
+      "url": "https://science.nasa.gov/get-involved/citizen-science/help-refine-data-from-space-telescopes-with-artifact-inspector/",
+      "newsid": "3!3"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/galaxies-iizw096.jpg",
+      "published_at": "2026-09-11T17:19:47Z",
+      "title": "NASA’s Chandra Spots Galactic Gem",
+      "summary": "Two galaxies merge at a furious rate in this Aug. 25, 2026, image of the II Zw 096 system. This and several other images of both visually and scientifically interesting galaxies were released by NASA’s Chandra X-ray Observatory and other telescopes. Chandra X-ray data (magenta) pinpoint powerful black hole activity and hot gas, while optical […]",
+      "url": "https://www.nasa.gov/image-article/nasas-chandra-spots-galactic-gem/",
+      "newsid": "3!5"
+    },
+    {
+      "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-2291885998-1789141845.jpg",
+      "published_at": "2026-09-11T16:20:43Z",
+      "title": "NASA moving at warp speed to set up US Space Academy",
+      "summary": "NASA asks US states to show them the money.",
+      "url": "https://arstechnica.com/space/2026/09/nasa-moving-at-warp-speed-to-set-up-us-space-academy/",
+      "newsid": "3!7"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/crew-12-advisory-spet-11.jpg",
+      "published_at": "2026-09-11T15:05:20Z",
+      "title": "NASA’s SpaceX Crew-12 to Discuss Station Mission, Upcoming Return",
+      "summary": "Media are invited to hear from NASA’s SpaceX Crew-12 astronauts during a news conference beginning at 2:45 p.m. EDT, Wednesday, Sept. 16, from the International Space Station. NASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev will discuss their upcoming return to Earth. Learn where […]",
+      "url": "https://www.nasa.gov/news-release/nasas-spacex-crew-12-to-discuss-station-mission-upcoming-return/",
+      "newsid": "3!9"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/art002e012702large.jpg",
+      "published_at": "2026-09-11T14:56:25Z",
+      "title": "NASA Boosts Open Science, Data Sharing with Artemis Accords",
+      "summary": "The science from every Moon rock sample, lunar dataset, and discovery produced through NASA’s Artemis program will be shared by the agency with the global scientific community. That commitment is upheld by all 71 countries that have signed the Artemis Accords, a set of principles for safe and transparent civil space exploration. NASA put those […]",
+      "url": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-boosts-open-science-data-sharing-with-artemis-accords/",
+      "newsid": "3!11"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/flex_and_sentinel-3c_ready_for_launch/27459766-1-eng-GB/FLEX_and_Sentinel-3C_ready_for_launch_card_full.jpg",
+      "published_at": "2026-09-11T13:00:00Z",
+      "title": "Week in images: 07-11 Sep 2026",
+      "summary": "Week in images: 07-11 Sep 2026",
+      "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_07-11_Sep_2026",
+      "newsid": "3!13"
+    },
+    {
+      "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/c-Isar-Aerospace-Flight-2_2026-09-05-224332_ylbv.jpg",
+      "published_at": "2026-09-11T11:00:30Z",
+      "title": "Rocket Report: Europe joins the commercial launch club; a Ravn X sighting?",
+      "summary": "\"We felt like now is the time to pour gas on that fire.\"",
+      "url": "https://arstechnica.com/space/2026/09/rocket-report-europe-joins-the-commercial-launch-club-a-ravn-x-sighting/",
+      "newsid": "3!15"
+    },
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/Avio-Completes-Integration-of-FD1-Rocket-Demonstrator-hero.webp",
+      "published_at": "2026-09-11T08:18:43Z",
+      "title": "Avio Completes Integration of FD1 Rocket Demonstrator",
+      "summary": "Italian rocket builder Avio has completed integration of its FD1 flight demonstrator, marking a major milestone in preparations for the vehicle’s launch from an Italian Ministry of Defence test range in Sardinia. Avio announced the milestone on 10 September as part of its first-half 2026 financial results. The company said its liquid oxygen and methane […]\nThe post Avio Completes Integration of FD1 Rocket Demonstrator appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/avio-completes-integration-of-fd1-rocket-demonstrator/",
+      "newsid": "3!17"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/teams_at_esoc_during_esa_s_flex_and_copernicus_sentinel-3c_launch_and_early_orbit_leop_simulations/27464737-3-eng-GB/Teams_at_ESOC_during_ESA_s_FLEX_and_Copernicus_Sentinel-3C_launch_and_early_orbit_LEOP_simulations_card_full.png",
+      "published_at": "2026-09-11T08:00:00Z",
+      "title": "A team of teams like never before: rehearsing a unique launch at ESA mission control",
+      "summary": "On 15 September, two spacecraft will leave Earth together aboard the same launcher from Europe’s spaceport in Kourou: FLEX, ESA’s photosynthesis mission, and Sentinel-3C, Copernicus’ newest satellite monitoring Earth’s oceans, land, ice and atmosphere.",
+      "url": "https://www.esa.int/Enabling_Support/Operations/A_team_of_teams_like_never_before_rehearsing_a_unique_launch_at_ESA_mission_control",
+      "newsid": "3!19"
+    },
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/First-HyPrSpace-Baguette-One-Launch-Slips-to-2027.webp",
+      "published_at": "2026-09-12T05:00:42Z",
+      "title": "First HyPrSpace Baguette One Launch Slips to 2027",
+      "summary": "French launch startup HyPrSpace announced on 11 September that it has pushed the inaugural flight of its Baguette One suborbital rocket to 2027. In June 2025, HyPrSpace announced that it would launch the inaugural flight of its Baguette One rocket in 2026 from a French Directorate General of Armaments (DGA) test facility on the French […]\nThe post First HyPrSpace Baguette One Launch Slips to 2027 appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/first-hyprspace-baguette-one-launch-slips-to-2027/",
+      "newsid": "3!22"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/citizen-science/highlights/2026/backgroundimage.001-Aimee_Schechter.jpg",
+      "published_at": "2026-09-11T19:48:09Z",
+      "title": "Help Refine Data from Space Telescopes with Artifact InSPECtor",
+      "summary": "How do scientists studying space with data from a telescope hundreds of thousands of miles away know that what they are seeing is real? A new NASA project, Artifact InSPECtor, invites you to find out – and by doing so, to help missions like Euclid and NASA’s new Nancy Grace Roman Space Telescope answer fundamental […]",
+      "url": "https://science.nasa.gov/get-involved/citizen-science/help-refine-data-from-space-telescopes-with-artifact-inspector/",
+      "newsid": "3!24"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/galaxies-iizw096.jpg",
+      "published_at": "2026-09-11T17:19:47Z",
+      "title": "NASA’s Chandra Spots Galactic Gem",
+      "summary": "Two galaxies merge at a furious rate in this Aug. 25, 2026, image of the II Zw 096 system. This and several other images of both visually and scientifically interesting galaxies were released by NASA’s Chandra X-ray Observatory and other telescopes. Chandra X-ray data (magenta) pinpoint powerful black hole activity and hot gas, while optical […]",
+      "url": "https://www.nasa.gov/image-article/nasas-chandra-spots-galactic-gem/",
+      "newsid": "3!26"
+    },
+    {
+      "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/08/GettyImages-2291885998-1789141845.jpg",
+      "published_at": "2026-09-11T16:20:43Z",
+      "title": "NASA moving at warp speed to set up US Space Academy",
+      "summary": "NASA asks US states to show them the money.",
+      "url": "https://arstechnica.com/space/2026/09/nasa-moving-at-warp-speed-to-set-up-us-space-academy/",
+      "newsid": "3!28"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/crew-12-advisory-spet-11.jpg",
+      "published_at": "2026-09-11T15:05:20Z",
+      "title": "NASA’s SpaceX Crew-12 to Discuss Station Mission, Upcoming Return",
+      "summary": "Media are invited to hear from NASA’s SpaceX Crew-12 astronauts during a news conference beginning at 2:45 p.m. EDT, Wednesday, Sept. 16, from the International Space Station. NASA astronauts Jessica Meir and Jack Hathaway, ESA (European Space Agency) astronaut Sophie Adenot, and Roscosmos cosmonaut Andrey Fedyaev will discuss their upcoming return to Earth. Learn where […]",
+      "url": "https://www.nasa.gov/news-release/nasas-spacex-crew-12-to-discuss-station-mission-upcoming-return/",
+      "newsid": "3!30"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/art002e012702large.jpg",
+      "published_at": "2026-09-11T14:56:25Z",
+      "title": "NASA Boosts Open Science, Data Sharing with Artemis Accords",
+      "summary": "The science from every Moon rock sample, lunar dataset, and discovery produced through NASA’s Artemis program will be shared by the agency with the global scientific community. That commitment is upheld by all 71 countries that have signed the Artemis Accords, a set of principles for safe and transparent civil space exploration. NASA put those […]",
+      "url": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-boosts-open-science-data-sharing-with-artemis-accords/",
+      "newsid": "3!32"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/flex_and_sentinel-3c_ready_for_launch/27459766-1-eng-GB/FLEX_and_Sentinel-3C_ready_for_launch_card_full.jpg",
+      "published_at": "2026-09-11T13:00:00Z",
+      "title": "Week in images: 07-11 Sep 2026",
+      "summary": "Week in images: 07-11 Sep 2026",
+      "url": "https://www.esa.int/About_Us/Week_in_images/Week_in_images_07-11_Sep_2026",
+      "newsid": "3!34"
+    },
+    {
+      "image_url": "https://cdn.arstechnica.net/wp-content/uploads/2026/09/c-Isar-Aerospace-Flight-2_2026-09-05-224332_ylbv.jpg",
+      "published_at": "2026-09-11T11:00:30Z",
+      "title": "Rocket Report: Europe joins the commercial launch club; a Ravn X sighting?",
+      "summary": "\"We felt like now is the time to pour gas on that fire.\"",
+      "url": "https://arstechnica.com/space/2026/09/rocket-report-europe-joins-the-commercial-launch-club-a-ravn-x-sighting/",
+      "newsid": "3!36"
+    },
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/Avio-Completes-Integration-of-FD1-Rocket-Demonstrator-hero.webp",
+      "published_at": "2026-09-11T08:18:43Z",
+      "title": "Avio Completes Integration of FD1 Rocket Demonstrator",
+      "summary": "Italian rocket builder Avio has completed integration of its FD1 flight demonstrator, marking a major milestone in preparations for the vehicle’s launch from an Italian Ministry of Defence test range in Sardinia. Avio announced the milestone on 10 September as part of its first-half 2026 financial results. The company said its liquid oxygen and methane […]\nThe post Avio Completes Integration of FD1 Rocket Demonstrator appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/avio-completes-integration-of-fd1-rocket-demonstrator/",
+      "newsid": "3!38"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/teams_at_esoc_during_esa_s_flex_and_copernicus_sentinel-3c_launch_and_early_orbit_leop_simulations/27464737-3-eng-GB/Teams_at_ESOC_during_ESA_s_FLEX_and_Copernicus_Sentinel-3C_launch_and_early_orbit_LEOP_simulations_card_full.png",
+      "published_at": "2026-09-11T08:00:00Z",
+      "title": "A team of teams like never before: rehearsing a unique launch at ESA mission control",
+      "summary": "On 15 September, two spacecraft will leave Earth together aboard the same launcher from Europe’s spaceport in Kourou: FLEX, ESA’s photosynthesis mission, and Sentinel-3C, Copernicus’ newest satellite monitoring Earth’s oceans, land, ice and atmosphere.",
+      "url": "https://www.esa.int/Enabling_Support/Operations/A_team_of_teams_like_never_before_rehearsing_a_unique_launch_at_ESA_mission_control",
+      "newsid": "3!40"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/videos/2026/09/esa_s_flex_mission_reveals_the_secret_glow_of_plants/27465436-1-eng-GB/ESA_s_FLEX_mission_reveals_the_secret_glow_of_plants_card_full.png",
+      "published_at": "2026-09-14T08:00:00Z",
+      "title": "ESA’s FLEX mission reveals the secret glow of plants",
+      "summary": "Plants may look still and silent, but every leaf is constantly responding to its environment.",
+      "url": "https://www.esa.int/ESA_Multimedia/Videos/2026/09/ESA_s_FLEX_mission_reveals_the_secret_glow_of_plants",
+      "newsid": "3!43"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/flex_and_sentinel-3c_ready_for_launch/27459766-1-eng-GB/FLEX_and_Sentinel-3C_ready_for_launch_card_full.jpg",
+      "published_at": "2026-09-14T07:20:00Z",
+      "title": "FLEX and Sentinel-3C ready for liftoff on Vega-C",
+      "summary": "Two Earth observation satellites – ESA’s Fluorescence Explorer (FLEX) satellite, and the third satellite for the Copernicus Sentinel-3 mission – are encapsulated inside the nose cone of a Vega-C launcher and are awaiting liftoff at Europe’s Spaceport in French Guiana.",
+      "url": "https://www.esa.int/Applications/Observing_the_Earth/FLEX_and_Sentinel-3C_ready_for_liftoff_on_Vega-C",
+      "newsid": "3!45"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/september/ElementOrigins2_svs_6000.jpg",
+      "published_at": "2026-09-14T04:05:00Z",
+      "title": "APOD: 2026 September 14 – Where Your Elements Came From",
+      "summary": "APOD Science APOD APOD: 2026 September 14 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. Where Your Elements […]",
+      "url": "https://science.nasa.gov/image-article/apod-2026-september-14-where-your-elements-came-from/",
+      "newsid": "3!47"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/an-early-look-at-fall-color-in-canada/northerncanada_oli2_20260727.jpg",
+      "published_at": "2026-09-14T04:00:00Z",
+      "title": "An Early Look at Fall Color in Canada",
+      "summary": "Reds, yellows, and oranges are already sweeping across tundra landscapes in Nunavut.",
+      "url": "https://science.nasa.gov/earth/earth-observatory/an-early-look-at-fall-color-in-canada/",
+      "newsid": "3!49"
+    },
+    {
+      "image_url": "https://www.nasaspaceflight.com/wp-content/uploads/2026/09/AB9BC3AB-D87F-4E6B-96AE-9902C9A9F085-scaled.jpeg",
+      "published_at": "2026-09-13T22:45:53Z",
+      "title": "Vega C set to launch the ESA Sentinel-3C and FLEX missions from Kourou",
+      "summary": "Avio S.p.A., the Italian prime contractor, launch service provider, and launch operator for the Vega…\nThe post Vega C set to launch the ESA Sentinel-3C and FLEX missions from Kourou appeared first on NASASpaceFlight.com.",
+      "url": "https://www.nasaspaceflight.com/2026/09/vega-c-launch-sentinel-3c-flex/",
+      "newsid": "3!51"
+    },
+    {
+      "image_url": "https://spacepolicyonline.com/wp-content/uploads/2026/09/Danielle-Severs-LinkedIn-300x300.jpg",
+      "published_at": "2026-09-13T21:41:03Z",
+      "title": "What’s Happening in Space Policy September 13-19, 2026",
+      "summary": "Here is SpacePolicyOnline.com’s list of space policy events for the week of September 13-19, 2026 and any insight we can offer about them. The House and Senate are in session […]",
+      "url": "https://spacepolicyonline.com/news/whats-happening-in-space-policy-september-13-19-2026/",
+      "newsid": "3!53"
+    },
+    {
+      "image_url": "http://spaceflightnow.com/wp-content/uploads/2026/09/20260913_O3b_mPOWER-F_delivery.jpeg",
+      "published_at": "2026-09-13T16:45:33Z",
+      "title": "Live coverage: SpaceX to launch final 3 O3b mPOWER satellites for SES",
+      "summary": "The launch marks the 400th orbital flight from Space Launch Complex 40 at Cape Canaveral Space Force Station. Liftoff is scheduled during an 87-minute window that opens at 2:49 p.m. EDT (1849 UTC).",
+      "url": "https://spaceflightnow.com/2026/09/13/live-coverage-spacex-to-launch-final-3-o3b-mpower-satellites-for-ses/",
+      "newsid": "3!55"
+    },
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/Sirius-Space-Fires-Complete-STAR-1-Rocket-Engine-for-the-First-Time-.webp",
+      "published_at": "2026-09-13T10:54:24Z",
+      "title": "Sirius Space Fires Complete STAR-1 Rocket Engine for the First Time",
+      "summary": "French launch startup Sirius Space Services has successfully test-fired a complete prototype of its STAR-1 rocket engine for the first time. The company announced the milestone on 12 September, stating that it had conducted the first hot-fire tests of the complete STAR-1 engine at Airborne Engineering’s propulsion test facility in southern England. While the company […]\nThe post Sirius Space Fires Complete STAR-1 Rocket Engine for the First Time appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/sirius-space-fires-complete-star-1-rocket-engine-for-the-first-time/",
+      "newsid": "3!57"
+    },
+    {
+      "image_url": "https://blogs.nasa.gov/spacestation/wp-content/uploads/sites/240/2023/01/nasa-logo-web-rgb.png",
+      "published_at": "2026-09-13T04:05:00Z",
+      "title": "APOD: 2026 September 13 – Comet NEOWISE Rising over the Adriatic Sea",
+      "summary": "APOD Science APOD APOD: 2026 September 13 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. To view this […]",
+      "url": "https://science.nasa.gov/image-article/apod-2026-september-13-comet-neowise-rising-over-the-adriatic-sea/",
+      "newsid": "3!59"
+    },
+    {
+      "image_url": "https://www.nasaspaceflight.com/wp-content/uploads/2026/09/NSF-2026-09-12-23-46-42-740.jpg",
+      "published_at": "2026-09-12T22:54:08Z",
+      "title": "Europe’s commercial launch sector picking up the pace",
+      "summary": "The European space sector is enjoying a run of advances in September, highlighted by Isar…\nThe post Europe’s commercial launch sector picking up the pace appeared first on NASASpaceFlight.com.",
+      "url": "https://www.nasaspaceflight.com/2026/09/europes-commercial-launch-sector-pace/",
+      "newsid": "3!61"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2022/12/stmd.jpg",
+      "published_at": "2026-09-29T14:20:08Z",
+      "title": "NSTGRO 2026",
+      "summary": "NSTGRO Homepage Eleanor ZimmermannMichigan Technological UniversityRadiative Passive Processing Technology for Offworld Resource Separation (RaPPTORS) Tetiana TymoshevskaUniversity of MichiganLiquid Droplet Radiator Enabled by an Electrospray Array Hannah HuttonUniversity of MichiganRESIST: Radiation-Enabled Structural Improvement in Space Materials Elan GraupeUniversity Of MinnesotaModel-Driven Navigation for Robust Spacecraft Atmospheric Entry and Descent Emily GokieUniversity Of Colorado, BoulderA low-SWaP timing system […]",
+      "url": "https://www.nasa.gov/directorates/stmd/space-tech-research-grants/nstgro/nstgro-2026/",
+      "newsid": "3!64"
+    },
+    {
+      "image_url": "https://europeanspaceflight.com/wp-content/uploads/2026/09/CNES-Publishes-Call-for-New-Launch-Tracking-Turrets-for-French-Guiana.webp",
+      "published_at": "2026-09-29T14:04:28Z",
+      "title": "CNES Publishes Call for New Rocket Launch Tracking Turrets for French Guiana",
+      "summary": "The French space agency CNES has issued a call for new automated optical tracking systems for the Guiana Space Centre. The new system will need to be capable of tracking launch vehicles to altitudes of up to an altitude of 100 kilometres. Published on 24 September, the initiative aims to replace aging and partially obsolete […]\nThe post CNES Publishes Call for New Rocket Launch Tracking Turrets for French Guiana appeared first on European Spaceflight.",
+      "url": "https://europeanspaceflight.com/cnes-publishes-call-for-new-rocket-launch-tracking-turrets-for-french-guiana/",
+      "newsid": "3!66"
+    },
+    {
+      "image_url": "https://www.nasa.gov/wp-content/uploads/2026/09/lsp-2-100x.jpg",
+      "published_at": "2026-09-29T14:00:00Z",
+      "title": "Under the Microscope: NASA-Made Material for Moon Manufacturing",
+      "summary": "Photos taken using a microscope reveal the colorful, kaleidoscope-like crystal structure of a new NASA-made material that could be used for manufacturing during future space missions. Developed at NASA’s Glenn Research Center in Cleveland, the material could be created directly on the Moon or Mars, allowing NASA to pack fewer supplies — saving weight and […]",
+      "url": "https://www.nasa.gov/image-article/nasa-made-material-moon-manufacturing/",
+      "newsid": "3!68"
+    },
+    {
+      "image_url": "https://i0.wp.com/spacenews.com/wp-content/uploads/2026/09/Screenshot-2026-09-28-081521.png?fit=1024%2C576&ssl=1",
+      "published_at": "2026-09-29T11:00:00Z",
+      "title": "If AI cannot be trusted in a classroom, why should it be trusted in orbit?",
+      "summary": "\nOn September 9, 2026, Evan Hubinger, Anthropic’s alignment science lead, said on social media that he personally believed there was a greater than 10% chance that artificial intelligence could kill […]\nThe post If AI cannot be trusted in a classroom, why should it be trusted in orbit? appeared first on SpaceNews.",
+      "url": "https://spacenews.com/if-ai-cannot-be-trusted-in-a-classroom-why-should-it-be-trusted-in-orbit/",
+      "newsid": "3!70"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/artist_s_impression_of_a_potential_european-led_orbital_station_1_3/27544855-1-eng-GB/Artist_s_impression_of_a_potential_European-led_orbital_station_1_3_card_full.png",
+      "published_at": "2026-09-29T10:48:00Z",
+      "title": "ESA investigates potential future European-led orbital outpost",
+      "summary": "As part of the preparation for the end of utilisation of the International Space Station (ISS), the European Space Agency (ESA) awarded a contract to two European industrial consortia to conduct preliminary studies assessing the feasibility to develop a future European-led orbital outpost. These studies are part of the options currently explored by ESA for the post-ISS era, building on Europe's industrial capabilities and expertise in human spaceflight.",
+      "url": "https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/ESA_investigates_potential_future_European-led_orbital_outpost",
+      "newsid": "3!72"
+    },
+    {
+      "image_url": "https://www.esa.int/var/esa/storage/images/esa_multimedia/images/2026/09/galaxies_in_a_cosmic_house_of_mirrors/27538440-1-eng-GB/Galaxies_in_a_cosmic_house_of_mirrors_card_full.jpg",
+      "published_at": "2026-09-29T08:00:00Z",
+      "title": "Galaxies in a cosmic house of mirrors",
+      "summary": "This NASA/ESA/CSA James Webb Space Telescope Picture of the Month features galaxies in great detail that have been warped and multiplied like they’ve stepped into a house of mirrors. The brilliant golden galaxies splashed across this image belong to a galaxy cluster called MACS J0454.1-0300. The orange galaxies concentrated on one side of the cluster are not actually part of the cluster and are much farther away from us.",
+      "url": "https://www.esa.int/ESA_Multimedia/Images/2026/09/Galaxies_in_a_cosmic_house_of_mirrors",
+      "newsid": "3!74"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/cds/apod/apod/2026/september/Shrimp_Pawel_2048.jpg",
+      "published_at": "2026-09-29T04:05:00Z",
+      "title": "APOD: 2026 September 29 – Sh2-188: The Shrimp Nebula",
+      "summary": "APOD Science APOD APOD: 2026 September 29 –… Today’s APOD Archive Submissions Index Search Calendar RSS Education About Discuss   APOD Astronomy Picture of the Day Discover the cosmos! Each day a different image or photograph of our fascinating universe is featured, along with a brief explanation written by a professional astronomer. Sh2-188: The Shrimp […]",
+      "url": "https://science.nasa.gov/image-article/apod-2026-september-29-sh2-188-the-shrimp-nebula/",
+      "newsid": "3!76"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/esd/eo/images/iotd/2026/fire-cloud-with-a-pileus-on-top/montanafire_master_20260811.jpg",
+      "published_at": "2026-09-29T04:01:00Z",
+      "title": "Fire Cloud with a Pileus on Top",
+      "summary": "Scientists captured rare observations of an ephemeral pileus cloud hovering over a smoke-infused cloud that rose above a wildfire in Montana.",
+      "url": "https://science.nasa.gov/earth/earth-observatory/fire-cloud-with-a-pileus-on-top/",
+      "newsid": "3!78"
+    },
+    {
+      "image_url": "https://spacepolicyonline.com/wp-content/uploads/2026/09/Starliner-presser-Sep-28-26-300x134.jpg",
+      "published_at": "2026-09-29T03:54:50Z",
+      "title": "Next Crewed Boeing Starliner Flight Not Until 2028",
+      "summary": "Two years after Boeing’s Starliner spacecraft landed in the New Mexico desert without NASA’s Butch Wilmore and Suni Williams, Boeing and NASA said today it will not be ready to […]",
+      "url": "https://spacepolicyonline.com/news/next-crewed-boeing-starliner-flight-not-until-2028/",
+      "newsid": "3!80"
+    },
+    {
+      "image_url": "https://assets.science.nasa.gov/dynamicimage/assets/science/missions/mars2020/2026/perseverance-rover-updates/Mars_Perseverance_SIF_1967_0841573976_050EBY_N0910806SRLC08063_0000LMJ.png",
+      "published_at": "2026-09-29T01:27:52Z",
+      "title": "Mars Has Its Charmes",
+      "summary": "Written by Athanasios (Thanos) Klidaras, Ph.D. candidate at Purdue University  Sept. 21, 2026 After a long hiatus, the Perseverance rover updates page is back. A lot has happened on Mars in the meantime, and with regular updates now resuming, there is plenty to catch up on — Perseverance has been busy. The rover has spent […]",
+      "url": "https://science.nasa.gov/blog/mars-has-its-charmes/",
+      "newsid": "3!82"
+    }
+  ],
+  "matches": [
+    {
+      "image_url": null,
+      "published_at": null,
+      "title": "Codex deletion test 55295047-3a3c-454f-884a-a43f408f12c1",
+      "summary": "Temporary post created to verify PostView DELETE.",
+      "url": "https://example.invalid/delete-test",
+      "newsid": "3!88"
+    }
+  ],
+  "deletion": {
+    "url": "http://localhost:8182/Rest/PostView/Delete?id=3!88",
+    "status": 200,
+    "body": "{\r\n  \"NewTitle\": \"\",\r\n  \"NewUrl\": \"\",\r\n  \"NewSummary\": \"\"\r\n}",
+    "remaining": [],
+    "existingPostsMissing": [],
+    "afterCount": 40
+  }
+}
