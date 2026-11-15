@@ -4,15 +4,17 @@ import { MDrivenClient } from '../../_common/mdriven-client.mjs';
 function parseArgs() {
   const args = process.argv.slice(2);
   let port = 9999;
+  let host = 'localhost';
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '-p' || args[i] === '--port') port = parseInt(args[++i], 10);
+    else if (args[i] === '-h' || args[i] === '--host') host = args[++i];
   }
-  return { port };
+  return { port, host };
 }
 
 async function main() {
-  const { port } = parseArgs();
-  const client = new MDrivenClient({ port });
+  const { port, host } = parseArgs();
+  const client = new MDrivenClient({ port, host });
 
   try {
     console.log(`\n🔍 Running MDriven Doctor on port ${port}...\n`);

@@ -3,10 +3,11 @@ import { MDrivenClient } from '../../_common/mdriven-client.mjs';
 
 function parseArgs() {
   const args = process.argv.slice(2);
-  const opts = { port: 9999, vmName: '', list: false };
+  const opts = { port: 9999, host: 'localhost', vmName: '', list: false };
   for (let i = 0; i < args.length; i++) {
     const a = args[i];
     if (a === '-p' || a === '--port') opts.port = parseInt(args[++i], 10);
+    else if (a === '-h' || a === '--host') opts.host = args[++i];
     else if (a === '-l' || a === '--list') opts.list = true;
     else if (a === '-n' || a === '--name' || a === '--viewmodel') opts.vmName = args[++i];
     else if (!opts.vmName && !a.startsWith('-')) opts.vmName = a;
@@ -15,8 +16,8 @@ function parseArgs() {
 }
 
 async function main() {
-  const { port, vmName, list } = parseArgs();
-  const client = new MDrivenClient({ port });
+  const { port, host, vmName, list } = parseArgs();
+  const client = new MDrivenClient({ port, host });
 
   try {
     if (list || !vmName) {
