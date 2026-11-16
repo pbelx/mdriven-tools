@@ -43,6 +43,8 @@ mdriven-tools/
 │   └── SKILL.md
 ├── mdriven-actions-navigation/ # Save, cancel, navigate; unsaved-changes popups
 │   └── SKILL.md
+├── mdriven-responsive-ui/     # Mobile layouts: media queries, class hooks, card/grid sizing
+│   └── SKILL.md
 └── mdriven-viewmodel/         # ViewModel structure & expression inspector
     ├── SKILL.md
     └── scripts/viewmodel.mjs
@@ -98,6 +100,7 @@ node mdriven-seeker/scripts/seeker.mjs -p 9999 --repair MySeeker
 - `mdriven-filter-page`: build a list or dashboard page with variable-bound dropdowns, date ranges, combined live filtering, totals and KPI cards.
 - `mdriven-icons`: add built-in Material Icons with the `Icon` and `IconPosition` tagged values, and map mockup icons to Material names.
 - `mdriven-actions-navigation`: wire Review/Confirm/Cancel buttons, save before navigating, avoid unsaved-changes popups and empty records, and auto-number references.
+- `mdriven-responsive-ui`: make Turnkey pages work on phones with media queries in the model CSS, class hooks on containers and columns, fewer grid columns, and fixed-size cards with clamped text.
 
 ### 7. Diagnose or Restore the Turnkey Theme
 ```powershell

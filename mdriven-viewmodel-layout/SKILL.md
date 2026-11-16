@@ -71,9 +71,12 @@ The high-level layout application API can drop omitted columns, including pick-l
 - A grid fills to the bottom only when every container above it has height to give. Set `Grow := 1` on the grid's container and `PCGrow := 1` on the grid column (Turnkey renders `flex-grow:1; min-height:160px`).
 - A ViewModel mounted inside another (`Column.MountedViewModel`) renders its root container as a plain flex item of the host container. A standalone page's root is sized to the window, but a mounted root with no `Grow` stays content-height, so its grid stops short. Set `Grow := 1` on the mounted ViewModel's root `PlacingContainer`; the standalone page is unaffected (verified).
 - To find which element limits height in the browser, walk up from the grid in the console and print each ancestor's computed `height`, `display`, `flexGrow` and `overflowY`. The first ancestor whose height drops below its parent's is the cause. Generated class names such as `pcHost_0_1_0` are positional, so prefer a model fix over CSS that targets them.
-- Preserve wrapping when requested. Fixed widths can wrap but may still overflow very narrow screens; do not claim full responsiveness without checking it.
+- Preserve wrapping when requested. Fixed widths can wrap but may still overflow very narrow screens; do not claim full responsiveness without checking it. For breakpoints, class hooks and mobile recipes, see the [responsive UI skill](../mdriven-responsive-ui/SKILL.md).
+- A container's own `MinSize` / `MaxSize` also act along its parent's primary axis. A Column nested in a card Row is a vertical box, so `MaxSize := 200` on it rendered as `max-height:200px`, not a width. A 200px photo filled it and pushed the text out of the card (verified). Constrain card width on the card itself, or with CSS.
+- A model Style with padding (for example a Card style with 20px a side) reduces the space available to fixed-width children. Use `width:100%` inside it rather than a pixel width.
+- After building a container, check that no container has both `Columns` and `ChildContainers`. If a widget must sit beside child containers, give it its own child container.
 
-To clear a nullable size through Action Language, copy a verified null value from a known unchanged property of the same type if the evaluator does not accept an untyped null literal. Never copy from an arbitrary property without checking its current value.
+To clear a nullable size through Action Language, copy a verified null value from a known unchanged property of the same type if the evaluator does not accept an untyped null literal. Never copy from an arbitrary property without checking its current value. Wrap the assignment in parentheses when it follows `let ... in`: `(b.MaxSize := a.MaxSize)`. Without them, the evaluator reported `"a" is not a type name` (verified).
 
 ## Verify and save
 
