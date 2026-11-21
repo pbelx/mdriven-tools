@@ -11,8 +11,24 @@ Read the sibling [evaluator skill](../mdriven-eval/SKILL.md) for transport and [
 
 A button is a `Column` with `IsAction := true`. It can run:
 
-- **An expression:** action language in `Expression`, with `selfVM` available. Disable it with `ExpressionForReadOnly`.
+- **An expression:** action language in `Expression`, with `selfVM` available. Control its enabled state with `ExpressionForReadOnly` (see "Disabled buttons" below: on a button it works as an enable condition).
 - **A linked action:** `ActionToExecute := <ClassAction or GlobalAction>`.
+
+## Disabled buttons
+
+On an action column, `ExpressionForReadOnly` is an **enable** condition: the button is enabled when it is true. This is the opposite of a data column, where true means read-only.
+
+- **Observed (Turnkey 7.2, ecommerce model):** nested buttons with `not self.InStock` were disabled for in-stock rows; changing to `self.InStock` enabled them.
+- **Observed, cause unknown:** a root-level button in an unrooted ViewModel (`RequiresRootObject = false`) stayed disabled although its condition (`X.allinstances->...->notEmpty`) was true. A button on the same page with no condition was enabled. Workaround: leave `ExpressionForReadOnly` empty and guard inside the action: `(<condition>).whentrue((<statements>))`.
+- A nested button's state is bound to one page-level flag (`VM_Status.<Nesting>_<Column>_Enabled`), not to a per-row value.
+
+Check the real state instead of guessing. The model evaluator cannot see runtime state, but headless Edge can render the running page:
+
+```powershell
+& "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --headless=new --disable-gpu --user-data-dir="<temp dir>" --virtual-time-budget=20000 --dump-dom "http://localhost:<port>/App#/<ViewModel>/`$null`$"
+```
+
+Search the output for `<button ... title="<label>"` and look for `disabled="disabled"`. Turnkey only picks up model changes after the user saves in the Designer and restarts the prototype, so re-check after that. Also read the prototype data file (`<Model>.PrototypeData.xml`) to confirm the data the condition depends on.
 
 **Observed:** when `ActionToExecute` is set, the column `Expression` did not run. Do not split one job between the two. Use either a self-contained expression or an action.
 
