@@ -1,0 +1,83 @@
+/* ===== MDriven UI kit (generic). Put a theme block above this file. ===== */
+
+/* --- text --- */
+.ui-title, .ui-title p { font-size:1.6rem !important; line-height:2rem !important; font-weight:700 !important; margin:0 !important; }
+.ui-subtitle, .ui-subtitle p { font-size:1rem !important; color:var(--ui-muted, #6b7280) !important; margin:0 !important; }
+.ui-muted, .ui-muted p { color:var(--ui-muted, #6b7280) !important; font-size:.875rem !important; }
+.ui-strong, .ui-strong p { font-weight:600 !important; }
+.ui-accent, .ui-accent p { color:var(--ui-accent, #2563eb) !important; font-weight:700 !important; font-size:1.1rem !important; }
+.ui-clamp1, .ui-clamp2, .ui-clamp3 { min-width:0 !important; max-width:100% !important; width:100% !important; }
+p.ui-clamp1, .ui-clamp1 p { display:block !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+p.ui-clamp2, .ui-clamp2 p { display:-webkit-box !important; -webkit-box-orient:vertical !important; -webkit-line-clamp:2 !important; line-clamp:2; overflow:hidden !important; white-space:normal !important; overflow-wrap:anywhere; line-height:1.4 !important; max-height:2.8em !important; margin:0 !important; }
+p.ui-clamp3, .ui-clamp3 p { display:-webkit-box !important; -webkit-box-orient:vertical !important; -webkit-line-clamp:3 !important; line-clamp:3; overflow:hidden !important; white-space:normal !important; overflow-wrap:anywhere; line-height:1.4 !important; max-height:4.2em !important; margin:0 !important; }
+
+/* --- spacing helpers for containers --- */
+.ui-gap-1 { gap:.5rem !important; }
+.ui-gap-2 { gap:1rem !important; }
+.ui-gap-3 { gap:1.5rem !important; }
+.ui-pad { padding:20px !important; box-sizing:border-box; }
+
+/* --- panel: a white card around a section (container) --- */
+.ui-panel { background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); padding:20px; box-sizing:border-box; }
+.ui-toolbar { gap:12px !important; align-items:flex-end !important; padding:12px 0 !important; }
+
+/* --- card list: put ui-card on the card container of a list nesting --- */
+/* the list that holds the cards: always a wrapping row, whatever direction the model gave it */
+.tk-component:has(> .ui-card) { display:flex !important; flex-direction:row !important; flex-wrap:wrap !important; align-items:flex-start !important; align-content:flex-start !important; gap:16px !important; }
+/* fixed width, natural height. Do not use flex-basis for the width: in a column-direction parent it becomes the height and clips the card. */
+.ui-card { box-sizing:border-box; flex:0 0 auto !important; width:240px !important; height:auto !important; max-height:none !important; max-width:100% !important; min-width:0 !important; padding:14px; gap:6px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); overflow:hidden; transition:box-shadow .15s, transform .15s; }
+.ui-card:hover { box-shadow:0 6px 18px rgba(0,0,0,.08); transform:translateY(-1px); }
+.ui-card > * { width:100% !important; min-width:0 !important; max-width:100% !important; flex-shrink:0 !important; }
+.ui-card-title, .ui-card-title p { font-weight:600 !important; font-size:1rem !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; margin:0 !important; }
+div.ui-card-img { height:160px !important; max-height:160px !important; min-height:0 !important; flex:0 0 160px !important; overflow:hidden !important; border-radius:10px; background:var(--ui-soft, #f3f4f6); }
+img.ui-card-img, .ui-card-img img { width:100% !important; max-width:100% !important; height:160px !important; max-height:160px !important; object-fit:cover; display:block; }
+
+/* --- feedback: message banner, pill, small per-row status (static text columns) --- */
+div.ui-notice { background:var(--ui-soft, #f3f4f6); border-left:4px solid var(--ui-accent, #2563eb); border-radius:10px; padding:10px 14px !important; margin:4px 0 12px 0 !important; box-sizing:border-box; }
+.ui-notice p { margin:0 !important; font-weight:600 !important; }
+div.ui-badge { flex:0 0 auto !important; align-self:center !important; background:var(--ui-soft, #f3f4f6); border-radius:999px; padding:6px 14px !important; }
+.ui-badge p { margin:0 !important; font-weight:600 !important; color:var(--ui-accent, #2563eb) !important; white-space:nowrap !important; }
+.ui-status, .ui-status p { color:var(--ui-accent, #2563eb) !important; font-weight:600 !important; font-size:.875rem !important; margin:0 !important; }
+
+/* --- KPI tile (read-only value column) --- */
+.ui-kpi { flex:1 1 180px !important; min-width:160px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); padding:14px 16px !important; box-sizing:border-box; }
+.ui-kpi input, .ui-kpi p { font-size:1.5rem !important; font-weight:700 !important; color:var(--ui-accent, #2563eb) !important; }
+
+/* --- images --- */
+img.ui-thumb, .ui-thumb img { width:48px !important; height:48px !important; max-width:48px !important; max-height:48px !important; object-fit:cover; border-radius:8px; display:block; }
+img.ui-detail-img, .ui-detail-img img { max-width:400px !important; width:100% !important; max-height:400px !important; height:auto !important; object-fit:contain; border-radius:12px; display:block; }
+
+/* --- stored photo with URL image as fallback ---
+   Card: stored-image column (ui-card-img ui-photo) directly followed by the URL-image column (ui-card-img ui-urlimg).
+   The URL image is pulled up over the photo box and covers it. Make the URL column expression return an empty
+   string when a photo exists (see SKILL.md); it then has no src and is hidden, so the photo shows. Outside grids Turnkey does not swap a missing stored image for a marker, so CSS cannot detect it. */
+.ui-urlimg:has(img:not([src])), .ui-urlimg:has(img[src=""]) { display:none !important; }
+.ui-card > .ui-photo + .ui-urlimg { margin-top:-166px !important; position:relative; z-index:1; }  /* image height 160 + card gap 6 */
+/* a stored image that failed to load: cover the broken-image icon with the soft background */
+img.ui-photo { position:relative; }
+img.ui-photo::after { content:""; position:absolute; inset:0; background:var(--ui-soft, #f3f4f6); }
+/* Grid: Turnkey swaps a missing stored image for Content/icons/fallback-image.svg there; these rules key on that.
+   Name the two columns Photo and Image and keep them adjacent. One cell shows per row. */
+.tk-data-table__native:has(th[colname="Photo"]) th[colname="Image"] { display:none !important; }
+.tk-data-table__native:has(th[colname="Image"]) tr:has(td[colname="Photo"] img[src$="fallback-image.svg"]) td[colname="Photo"] { display:none !important; }
+.tk-data-table__native:has(th[colname="Photo"]) tr:has(td[colname="Photo"] img:not([src$="fallback-image.svg"])) td[colname="Image"] { display:none !important; }
+.tk-data-table__native td[colname="Photo"] img, .tk-data-table__native td[colname="Image"] img, .tk-data-table__native td[colname="UrlImage"] img { width:48px !important; height:48px !important; max-width:48px !important; object-fit:cover; border-radius:8px; display:block; }
+.tk-data-table__native td[colname="Image"] img:not([src]), .tk-data-table__native td[colname="UrlImage"] img:not([src]) { visibility:hidden; }
+
+/* --- form / modal body: photo left, fields right (containers) --- */
+.ui-form-body { gap:24px !important; align-items:flex-start !important; }
+.ui-form-photo { flex:0 0 240px !important; max-width:100% !important; gap:12px; }
+.ui-form-photo img { width:100% !important; height:auto !important; max-height:240px !important; border-radius:12px; object-fit:cover; display:block; }
+.ui-form-info { flex:1 1 280px !important; min-width:0 !important; gap:16px; }
+
+/* --- data grid polish --- */
+.tk-data-table__native th.tk-data-table__header-cell { font-weight:600; }
+.tk-data-table__native td.action { width:1% !important; white-space:nowrap !important; }
+.tk-data-table__native td.action button { min-width:88px; }
+
+/* --- phones --- */
+@media (max-width:768px) {
+  .ui-card { flex:1 1 100% !important; width:100% !important; }
+  .ui-form-photo { flex:1 1 100% !important; }
+  .ui-kpi { flex:1 1 45% !important; }
+}

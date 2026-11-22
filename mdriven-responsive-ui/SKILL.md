@@ -104,6 +104,8 @@ p.x-clamp1 { display:block !important; white-space:nowrap !important; overflow:h
 
 Lists mounted in a Dashboard tab lose the selected tab if you navigate to a full page, because the tab variable resets. Open details as a modal instead. Use a ClassAction with `BringUpViewModel`, root `self`, `ViewModelIsModal = true` and `ViewModelModalOkEnableExpression = 'true'`. Point the card button's `ActionToExecute` at it. Like any ClassAction, it then appears in the action menus of other ViewModels of that class.
 
+**Do not open a modal from inside a modal.** An Edit button in the details modal linked to another modal action did nothing on desktop or mobile (verified). Put a separate edit button on the card instead: a Row container with a pencil (`Icon=edit`, `IconButton=True`) linked to the edit action, and the arrow linked to the details action. Keep the details modal read-only.
+
 ## Verify and report
 
 - Confirm `modelErrorCount` is 0 and no column has `ErrorText`.

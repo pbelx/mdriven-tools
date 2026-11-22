@@ -1,0 +1,19 @@
+/* ===== Theme: purple. Turnkey colour variables take "r, g, b" triples. ===== */
+:root {
+  --primary-color: 124, 58, 237;
+  --primary-color-dark: 109, 40, 217;
+  --text-on-primary: 255, 255, 255;
+  --navbar-bg-color: 46, 16, 101;
+  --navbar-brand-color: 255, 255, 255;
+  --navbar-link-color: 255, 255, 255;
+  --btn-border-radius: 8px;
+  --input-border-radius: 8px;
+  --select-border-radius: 8px;
+  --table-border-radius: 12px;
+  /* kit variables (ordinary CSS colours) */
+  --ui-accent: #7c3aed;
+  --ui-soft: #f5f3ff;
+  --ui-border: #e5e7eb;
+  --ui-muted: #6b7280;
+  --ui-radius: 16px;
+}

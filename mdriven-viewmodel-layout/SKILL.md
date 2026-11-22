@@ -37,7 +37,7 @@ Include column `Expression`, `ColumnForPickList`, `ReferedNesting`, `PCIndex`, `
 - Assign unique, task-specific names to new containers. Re-query by immutable ID or unique name when moving widgets. Do not keep a binding such as `let parent=field.PlacingContainer` across moves and assume it still identifies the original container; paths can change as associations change.
 - Move existing widgets with `destination.Columns.Add(existingColumn)`. Do not recreate widgets just to move them.
 - Set the row's `Type := #Row` after assigning its members, then read back `TypePresentation` to confirm it remains a Row.
-- Set widget `PCIndex` explicitly for left-to-right order. Inspect `ChildContainers` order separately for top-to-bottom order.
+- Set widget `PCIndex` explicitly for left-to-right order. When reordering existing widgets, also reorder the container's `Columns` list with `box.Columns.Remove(c)` and then `box.Columns.Add(c)` in the new order. Otherwise Designer saved the old order to the `.modlr`, even though the live `PCIndex` values read back correctly (verified). Check the saved file before uploading. Inspect `ChildContainers` order separately for top-to-bottom order.
 - To insert new rows before an existing final container, remove that final container from the root's collection, append the new rows, then add the final container back. This is a reparenting operation, not deletion.
 - Preserve every existing field, including photos and helper columns. Do not delete an apparently unused container until its contents and role are known.
 

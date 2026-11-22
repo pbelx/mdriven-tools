@@ -16,11 +16,11 @@ A button is a `Column` with `IsAction := true`. It can run:
 
 ## Disabled buttons
 
-On an action column, `ExpressionForReadOnly` is an **enable** condition: the button is enabled when it is true. This is the opposite of a data column, where true means read-only.
+On an action column, `ExpressionForReadOnly` is a **disable** condition: the button is disabled when it is true, the same sense as a data column.
 
-- **Observed (Turnkey 7.2, ecommerce model):** nested buttons with `not self.InStock` were disabled for in-stock rows; changing to `self.InStock` enabled them.
-- **Observed, cause unknown:** a root-level button in an unrooted ViewModel (`RequiresRootObject = false`) stayed disabled although its condition (`X.allinstances->...->notEmpty`) was true. A button on the same page with no condition was enabled. Workaround: leave `ExpressionForReadOnly` empty and guard inside the action: `(<condition>).whentrue((<statements>))`.
-- A nested button's state is bound to one page-level flag (`VM_Status.<Nesting>_<Column>_Enabled`), not to a per-row value.
+- **Verified (Turnkey 7.2, ecommerce model) on page-level buttons:** `CurrentUser->notEmpty` gave an enabled button when logged out and a disabled one when logged in; `...->notEmpty` on a non-empty cart gave a disabled Place order.
+- **Nested buttons are not per row.** Their state is bound to one page-level flag (`VM_Status.<Nesting>_<Column>_Enabled`), so a row condition such as `not self.InStock` does not disable individual rows and can look inverted (it disabled every row, and `self.InStock` enabled every row). Do not use a row condition on a nested button. Leave `ExpressionForReadOnly` empty and guard inside the action: `(<condition>).whentrue((<statements>))`.
+- A periodic action (`ActionPeriodicityMillisec`) must have a disable condition or the model reports an error; it fires only while the condition is false.
 
 Check the real state instead of guessing. The model evaluator cannot see runtime state, but headless Edge can render the running page:
 

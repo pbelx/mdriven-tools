@@ -41,9 +41,17 @@ mdriven-tools/
 │   └── SKILL.md
 ├── mdriven-icons/             # Material Icons on buttons, tabs and cards
 │   └── SKILL.md
+├── mdriven-images/            # Stored and URL images: upload, display, fallback
+│   └── SKILL.md
+├── mdriven-ui-kit/            # Reusable stylesheet and colour theme: cards, modals, grids
+│   ├── SKILL.md
+│   ├── ui-kit.css
+│   └── theme-purple.css
 ├── mdriven-actions-navigation/ # Save, cancel, navigate; unsaved-changes popups
 │   └── SKILL.md
 ├── mdriven-responsive-ui/     # Mobile layouts: media queries, class hooks, card/grid sizing
+│   └── SKILL.md
+├── mdriven-model-markup/      # Read/search the _ModelAsMarkup export; compare model copies
 │   └── SKILL.md
 └── mdriven-viewmodel/         # ViewModel structure & expression inspector
     ├── SKILL.md
@@ -99,7 +107,10 @@ node mdriven-seeker/scripts/seeker.mjs -p 9999 --repair MySeeker
 
 - `mdriven-filter-page`: build a list or dashboard page with variable-bound dropdowns, date ranges, combined live filtering, totals and KPI cards.
 - `mdriven-icons`: add built-in Material Icons with the `Icon` and `IconPosition` tagged values, and map mockup icons to Material names.
+- `mdriven-ui-kit`: install a generic stylesheet (`ui-` classes for cards, panels, KPI tiles, modal form bodies, thumbnails) and a colour theme through Turnkey's CSS variables; also covers how Turnkey applies list-column styles and how to reorder columns.
+- `mdriven-images`: store an uploaded image (`Blob` tagged `Eco.BlobType = Image`) or show one from a URL (`DataIsImageUrl`), fall back from one to the other, and lay out a photo beside fields in a form or modal.
 - `mdriven-actions-navigation`: wire Review/Confirm/Cancel buttons, save before navigating, avoid unsaved-changes popups and empty records, and auto-number references.
+- `mdriven-model-markup`: search the Markdown export Designer writes beside a model, check that it's current, and compare two `.modlr` copies to see what a colleague changed.
 - `mdriven-responsive-ui`: make Turnkey pages work on phones with media queries in the model CSS, class hooks on containers and columns, fewer grid columns, and fixed-size cards with clamped text.
 
 ### 7. Diagnose or Restore the Turnkey Theme
