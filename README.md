@@ -47,6 +47,8 @@ mdriven-tools/
 │   ├── SKILL.md
 │   ├── ui-kit.css
 │   └── theme-purple.css
+├── mdriven-access-groups/     # Hide menus and actions by role with AccessGroups
+│   └── SKILL.md
 ├── mdriven-actions-navigation/ # Save, cancel, navigate; unsaved-changes popups
 │   └── SKILL.md
 ├── mdriven-responsive-ui/     # Mobile layouts: media queries, class hooks, card/grid sizing
@@ -109,6 +111,7 @@ node mdriven-seeker/scripts/seeker.mjs -p 9999 --repair MySeeker
 - `mdriven-icons`: add built-in Material Icons with the `Icon` and `IconPosition` tagged values, and map mockup icons to Material names.
 - `mdriven-ui-kit`: install a generic stylesheet (`ui-` classes for cards, panels, KPI tiles, modal form bodies, thumbnails) and a colour theme through Turnkey's CSS variables; also covers how Turnkey applies list-column styles and how to reorder columns.
 - `mdriven-images`: store an uploaded image (`Blob` tagged `Eco.BlobType = Image`) or show one from a URL (`DataIsImageUrl`), fall back from one to the other, and lay out a photo beside fields in a form or modal.
+- `mdriven-access-groups`: hide admin menus and AutoForms from customers with AccessGroups, plan which actions go in which group, and know that group membership must be ticked in the Designer (MCP can create groups but not add actions to them).
 - `mdriven-actions-navigation`: wire Review/Confirm/Cancel buttons, save before navigating, avoid unsaved-changes popups and empty records, and auto-number references.
 - `mdriven-model-markup`: search the Markdown export Designer writes beside a model, check that it's current, and compare two `.modlr` copies to see what a colleague changed.
 - `mdriven-responsive-ui`: make Turnkey pages work on phones with media queries in the model CSS, class hooks on containers and columns, fewer grid columns, and fixed-size cards with clamped text.
