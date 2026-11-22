@@ -47,7 +47,7 @@ MCPServerInfo.MetaModelMetaInfo('Transition')
 MCPServerInfo.MetaModelMetaInfo('MethodTrigger')
 ```
 
-Use metadata and capability documentation to determine the supported creation path and ownership. This skill deliberately does not provide an untested construction recipe. Designer's state-machine attribute workflow is a valid UI fallback when MCP does not expose a verified equivalent.
+Use metadata and capability documentation to determine the supported creation path and ownership. A construction recipe that has worked is in [build-recipe.md](build-recipe.md); treat it as a starting point, not a guarantee for other versions. Designer's state-machine attribute workflow is a valid UI fallback when MCP does not expose a verified equivalent.
 
 Action Language uses `:=` for assignment, `let` bindings for local names, and semicolons between statements, without a trailing semicolon. Verify every response before dependent changes. If a partial edit fails, inspect the current structure before attempting repair; do not retry a creation batch that could duplicate elements.
 

@@ -35,6 +35,10 @@ For an inspection request, report findings without changing the model. For an au
 
 Use read-only `MCPTool_MDrivenDesigner_EvaluateOCLOnMetaModel` for discovery. Use `MCPTool_MDrivenDesigner_EvaluateActionLanguageOnMetaModel` for authorized changes. Query `MCPServerInfo.MetaModelMetaInfo('StateMachine')`, then relevant Region, Attribute, State, PseudoState, Transition, MethodTrigger, Method, and diagram types. Query the Action Language capability overview before unfamiliar operations. Do not invent constructors, enum values, ownership links, or diagram placement methods.
 
+For a recipe that has produced working machines (elements, tags, diagram, and the errors met on the way), read [references/build-recipe.md](references/build-recipe.md). It still requires checking the metamodel of the running version.
+
+**A diagram is not finished until it is readable.** States placed through MCP default to tiny text and no fill. Every time a state diagram is created or extended, set each `PlacedState.Size` to the larger text size and give each state a `Color` by meaning, space the boxes for the larger size, and match the size, colours and zoom of any state diagram the model already has. The values and the colour formula are in the recipe.
+
 Define the requested initial state and transition table. Preserve existing element IDs and data where possible. Do not recreate the whole state machine for a narrow wiring repair. Preserve ownership, state-attribute links, trigger-method links, and diagram representation using the discovered API. Semantic elements and their diagram placements are separate.
 
 The to-do example is optional: initial → Pending; Pending --StartTask→ OnGoing; OnGoing --CompleteTask→ Complete. Do not impose these names or prohibit reopening in unrelated workflows.
