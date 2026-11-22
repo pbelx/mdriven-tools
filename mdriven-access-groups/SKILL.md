@@ -54,13 +54,17 @@ Hiding the menu entry does **not** protect the page. Also set `Span.ExpressionFo
 | Create a group, set its expressions | Works: `let g=AccessGroup.Create in (g.Name:='AdminOnly'; g.VisibleExpression:='…'; g.EnableExpression:='…'; 'group')` |
 | Read membership | Works: `AccessGroup.allinstances->collect(g|g.Name.concat(': ').concat(g.AbstractActions->collect(a|a.Name)->asCommaList))` |
 | Add an action to a group | **Fails** in every form tried, see below. Do it in the Designer |
+| Add a ViewModel to a group | **Fails** too (`span.AccessGroups.Add(g)` and `g.ViewModels.Add(span)`). Use `Span.ExpressionForAccess`, which works, or tick it in the Designer |
 | Page access (`Span.ExpressionForAccess`) | Works |
 
 Membership attempts that failed:
 
 - `g.AbstractActions.Add(action)`: "Object does not match target type"
 - `action.AccessGroups.Add(g)`: "Object does not match target type"
+- `g.AbstractActions.Add(action.oclAsType(AbstractAction))`: same error. It reports ok only when the action is **already** a member, because it changes nothing. Do not take that as proof it works
 - creating the link class `AccessGroupAccessGroupsAbstractActionAbstractActions` and setting its ends: "Operation set_AsObject failed"
+
+Membership the user ticks in the Designer shows through MCP only after they save (Ctrl+S). Until then the read query returns the old list.
 
 So the agent creates the groups and the page access rules, then gives the user an exact list of actions to tick. Afterwards it checks the result with the read query above.
 
