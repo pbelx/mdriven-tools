@@ -58,7 +58,7 @@ The kit adds its own ordinary-colour variables: `--ui-accent`, `--ui-soft`, `--u
 | `ui-card-title`, `ui-card-img` | Columns inside a card | One-line bold title; 160px cover image |
 | `ui-notice`, `ui-badge`, `ui-status` | Static text column | Message banner; rounded pill (e.g. cart count); small accent status text in a row or card |
 | `ui-kpi-row`, `ui-kpi-card` | Wrapping Row container; small Column container per card inside it | KPI card with accent edge, shadow, two per row on phones |
-| `ui-kpi-label`, `ui-kpi-value` | Static text columns inside a card | Small uppercase label (takes an `Icon` tag); large bold value |
+| `ui-kpi-value` | The one static text column inside a card | Large bold value; the column's own label becomes the small uppercase caption, with its `Icon` |
 | `ui-kpi-good`, `ui-kpi-warn`, `ui-kpi-bad` | Added to the card's style | Green, amber or red edge and tint |
 | `ui-section` | Static text column | Section heading above a row of cards |
 | `ui-kpi` | Read-only value column in a wrapping row | Plain one-column tile (field label on top); use the card above for dashboards |
@@ -81,7 +81,9 @@ p.StyleExpression := '\'ui-panel ui-form-body\''                       -- contai
 
 **Details or edit modal.** One ViewModel for new and edit, opened with `ViewModelIsModal := true` and `ViewModelExecuteExpressionAfterModalOk := 'selfVM.Save'`. Body: `Body (Row, Wrap, 'ui-panel ui-form-body')` holding `PhotoBox ('ui-form-photo')` and `Info ('ui-form-info')`, with the field containers inside `Info`. Do not open a modal from inside a modal.
 
-**KPI cards (dashboard).** Per section: a static heading (`ui-section`), then a wrapping Row container (`'ui-kpi-row'`) whose children are one small Column container per card. Each card holds two static text columns: the label (`ui-kpi-label`, expression `'Awaiting payment'`, tags `Icon` and `IconPosition = after`) and the value (`ui-kpi-value`, expression `(<number>).asString`). A plain read-only field styled `ui-kpi` looks like a form input, not a card; that is the "plain" look to avoid.
+**KPI cards (dashboard).** Per section: a static heading (`ui-section`), then a wrapping Row container (`'ui-kpi-row'`) whose children are one small Column container per card. Each card holds one static text column styled `ui-kpi-value`: `Expression := '(<number>).asString'`, `PresentationString := 'Awaiting payment'`, tags `Icon` and `IconPosition = after`. Turnkey draws a static text column's label above its text and puts the icon inside that label, so the label is the caption.
+
+Do not use a second static column for the caption. A static column with an `Icon` tag and an empty `PresentationString` shows its column name, split into words, as a label (a column named `DelFailedLabel` displayed "Del Failed Label" above the caption; reported from a running app). Any static text column that carries an icon needs a real `PresentationString`. A plain read-only field styled `ui-kpi` looks like a form input, not a card; that is the "plain" look to avoid.
 
 Colour a card by its own number with the container's style expression, which is evaluated for the page:
 
