@@ -12,14 +12,14 @@ p.ui-clamp2, .ui-clamp2 p { display:-webkit-box !important; -webkit-box-orient:v
 p.ui-clamp3, .ui-clamp3 p { display:-webkit-box !important; -webkit-box-orient:vertical !important; -webkit-line-clamp:3 !important; line-clamp:3; overflow:hidden !important; white-space:normal !important; overflow-wrap:anywhere; line-height:1.4 !important; max-height:4.2em !important; margin:0 !important; }
 
 /* --- spacing helpers for containers --- */
-.ui-gap-1 { gap:.5rem !important; }
-.ui-gap-2 { gap:1rem !important; }
-.ui-gap-3 { gap:1.5rem !important; }
-.ui-pad { padding:20px !important; box-sizing:border-box; }
+.ui-gap-1 { gap:.5rem; }
+.ui-gap-2 { gap:1rem; }
+.ui-gap-3 { gap:1.5rem; }
+.ui-pad { padding:20px; box-sizing:border-box; }
 
 /* --- panel: a white card around a section (container) --- */
 .ui-panel { background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); padding:20px; box-sizing:border-box; }
-.ui-toolbar { gap:12px !important; align-items:flex-end !important; padding:12px 0 !important; }
+.ui-toolbar { gap:12px; align-items:flex-end !important; padding:12px 0; }
 
 /* --- card list: put ui-card on the card container of a list nesting --- */
 /* the list that holds the cards: always a wrapping row, whatever direction the model gave it */
@@ -33,19 +33,19 @@ div.ui-card-img { height:160px !important; max-height:160px !important; min-heig
 img.ui-card-img, .ui-card-img img { width:100% !important; max-width:100% !important; height:160px !important; max-height:160px !important; object-fit:cover; display:block; }
 
 /* --- feedback: message banner, pill, small per-row status (static text columns) --- */
-div.ui-notice { background:var(--ui-soft, #f3f4f6); border-left:4px solid var(--ui-accent, #2563eb); border-radius:10px; padding:10px 14px !important; margin:4px 0 12px 0 !important; box-sizing:border-box; }
+div.ui-notice { background:var(--ui-soft, #f3f4f6); border-left:4px solid var(--ui-accent, #2563eb); border-radius:10px; padding:10px 14px; margin:4px 0 12px 0; box-sizing:border-box; }
 .ui-notice p { margin:0 !important; font-weight:600 !important; }
-div.ui-badge { flex:0 0 auto !important; align-self:center !important; background:var(--ui-soft, #f3f4f6); border-radius:999px; padding:6px 14px !important; }
+div.ui-badge { flex:0 0 auto !important; align-self:center !important; background:var(--ui-soft, #f3f4f6); border-radius:999px; padding:6px 14px; }
 .ui-badge p { margin:0 !important; font-weight:600 !important; color:var(--ui-accent, #2563eb) !important; white-space:nowrap !important; }
 .ui-status, .ui-status p { color:var(--ui-accent, #2563eb) !important; font-weight:600 !important; font-size:.875rem !important; margin:0 !important; }
 
 /* --- KPI cards: a wrapping row (ui-kpi-row) of small column containers (ui-kpi-card),
-       each holding ONE static text column styled ui-kpi-value: its expression is the value, its label
+       each holding ONE static text column (no style of its own): its expression is the value, its label
        (PresentationString) is the caption, and its Icon tag is drawn inside the caption.
        Add ui-kpi-good / ui-kpi-warn / ui-kpi-bad to the card for a status colour. --- */
-.ui-section, .ui-section p { font-size:1.05rem !important; font-weight:700 !important; margin:10px 0 2px 0 !important; }
-.ui-kpi-row { flex-wrap:wrap !important; gap:14px !important; margin:4px 0 18px 0 !important; align-items:stretch !important; }
-.ui-kpi-card { box-sizing:border-box; flex:1 1 180px !important; min-width:160px !important; max-width:300px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-left:5px solid var(--ui-accent, #2563eb); border-radius:14px; padding:14px 16px !important; gap:4px !important; box-shadow:0 1px 3px rgba(0,0,0,.06); }
+.ui-section, .ui-section p { font-size:1.05rem !important; font-weight:700 !important; margin:10px 0 2px 0; }
+.ui-kpi-row { flex-wrap:wrap !important; gap:14px; margin:4px 0 18px 0; align-items:stretch !important; }
+.ui-kpi-card { box-sizing:border-box; flex:1 1 180px !important; min-width:160px !important; max-width:300px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-left:5px solid var(--ui-accent, #2563eb); border-radius:14px; padding:14px 16px; gap:4px; box-shadow:0 1px 3px rgba(0,0,0,.06); }
 .ui-kpi-card > * { width:100% !important; min-width:0 !important; max-width:100% !important; margin:0 !important; }
 .ui-kpi-card label { display:flex !important; align-items:center; justify-content:space-between; gap:8px; width:100%; margin:0 0 4px 0 !important; padding:0 !important; color:var(--ui-muted, #6b7280) !important; font-size:12px !important; font-weight:600 !important; text-transform:uppercase; letter-spacing:.05em; line-height:1.4 !important; }
 .ui-kpi-card label .mi { color:var(--ui-accent, #2563eb); font-size:22px !important; }
@@ -60,7 +60,7 @@ div.ui-badge { flex:0 0 auto !important; align-self:center !important; backgroun
 .ui-kpi-bad label .mi { color:#dc2626; }
 
 /* --- KPI tile (single read-only value column; simpler, plainer) --- */
-.ui-kpi { flex:1 1 180px !important; min-width:160px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); padding:14px 16px !important; box-sizing:border-box; }
+.ui-kpi { flex:1 1 180px !important; min-width:160px !important; background:#fff; border:1px solid var(--ui-border, #e5e7eb); border-radius:var(--ui-radius, 16px); padding:14px 16px; box-sizing:border-box; }
 .ui-kpi input, .ui-kpi p { font-size:1.5rem !important; font-weight:700 !important; color:var(--ui-accent, #2563eb) !important; }
 
 /* --- images --- */
@@ -85,7 +85,7 @@ img.ui-photo::after { content:""; position:absolute; inset:0; background:var(--u
 .tk-data-table__native td[colname="Image"] img:not([src]), .tk-data-table__native td[colname="UrlImage"] img:not([src]) { visibility:hidden; }
 
 /* --- form / modal body: photo left, fields right (containers) --- */
-.ui-form-body { gap:24px !important; align-items:flex-start !important; }
+.ui-form-body { gap:24px; align-items:flex-start !important; }
 .ui-form-photo { flex:0 0 240px !important; max-width:100% !important; gap:12px; }
 .ui-form-photo img { width:100% !important; height:auto !important; max-height:240px !important; border-radius:12px; object-fit:cover; display:block; }
 .ui-form-info { flex:1 1 280px !important; min-width:0 !important; gap:16px; }

@@ -1,6 +1,6 @@
 ---
 name: mdriven-ui-kit
-description: Give MDriven Turnkey pages a consistent look with a reusable stylesheet (cards, card lists, KPI tiles, panels, toolbars, modal form bodies, thumbnails, text clamps) and a colour theme set through Turnkey's CSS variables, installed into the model CSS via MCP. Use when a page looks plain or "off", when starting the styling of a new model, when the app needs a brand colour, when cards, modals or grids from one model should be reused in another, or when list columns appear in the wrong order.
+description: Give MDriven Turnkey pages a consistent look with a reusable stylesheet (cards, card lists, KPI tiles, panels, toolbars, modal form bodies, thumbnails, text clamps) and a colour theme set through Turnkey's CSS variables, installed in the model's tkusercss.css (preferred) or its FastTrackCSS. Use when a page looks plain or "off", when starting the styling of a new model, when the app needs a brand colour, when cards, modals or grids from one model should be reused in another, or when list columns appear in the wrong order.
 ---
 
 # MDriven UI Kit
@@ -12,22 +12,45 @@ Files in this folder:
 - [`ui-kit.css`](ui-kit.css): the generic kit. Do not put model-specific names in it.
 - [`theme-purple.css`](theme-purple.css): an example theme. Copy it and change the values for another colour.
 
-**Status.** The class catalogue was adapted from a working model (mavuno) and installed in a second one (ecommerce) with zero model errors. The Turnkey facts under "How Turnkey applies styles" were read from rendered pages. Seen in the running app: the purple theme (top bar, buttons, focus), titles, toolbar, and the grid photo/URL fallback. Not yet seen running: the card image overlay, KPI tiles, form/modal body, notice, badge and status classes. Check those and update this line.
+**Status.** The class catalogue was adapted from a working model (mavuno) and installed in a second one (ecommerce) with zero model errors. The Turnkey facts under "How Turnkey applies styles" were read from rendered pages. Seen in the running app: the purple theme (top bar, buttons, focus), titles, toolbar, and the grid photo/URL fallback. KPI tiles were seen running on the ecommerce dashboard. Not yet seen running: the card image overlay, form/modal body, badge and status classes. Check those and update this line. Installing through `tkusercss.css` was verified on ecommerce on 2026-11-23: the file was served, it loaded before the model CSS, and the pages measured the same.
 
 ## Install
 
-The model CSS is one string, `StylesInModel.allinstances->first.FastTrackCSS`. Back it up, then write theme + kit as the whole value.
+Put theme + kit in **`tkusercss.css`**, a plain file next to the model:
 
-```ocl
-StylesInModel.allinstances->size                      -- 0: create it first
-let s=StylesInModel.Create in (s.EnsureStyleTargets(); 'created')
-StylesInModel.allinstances->first.FastTrackCSS        -- read and save to a file as backup
-StylesInModel.allinstances->first.FastTrackCSS := '<theme css>\n<kit css>'
+```
+<Model>_AssetsTK/Content/tkusercss.css      e.g. ecommerce_AssetsTK/Content/tkusercss.css
 ```
 
-Build the string in a script: escape `\` and `'`, turn line breaks into `\n`, and keep single quotes out of the CSS (use double quotes in selectors). Read the length back. Model-specific rules go after the kit, under their own prefix.
+Why this file and not the model's FastTrackCSS:
+- **Load order.** The Designer warns that FastTrackCSS has the highest priority. Turnkey links `/Content/tkusercss.css` before `/Turnkey/StylesInModelCss`, as seen in a rendered page head, so CSS in the file can still be overridden by the model's own styles and by Designer settings.
+- **Easier to work with.** It is an ordinary file you can diff, review and copy to the next model.
+- **Deployment.** The `_AssetsTK` folder is uploaded with the model. The local prototype unpacks it each time the model loads; `App_Data/ExtractForExpansionInSite.log` shows "Expanded AssetsTK Time".
 
-Turnkey serves the result at `/Turnkey/StylesInModelCss`. It changes only after the model is saved and the prototype restarted.
+See <https://wiki.mdriven.net/Documentation%3ATkusercss> and <https://wiki.mdriven.net/Documentation%3AAssetsTK>.
+
+Steps:
+
+1. Prove the file is picked up. Write one visible rule, such as a fixed `body::after { content:"tkusercss loaded" }` label, then save, restart the prototype and look for it. Also check that `http://localhost:<port>/Content/tkusercss.css` returns 200.
+2. Back up the current `StylesInModel.allinstances->first.FastTrackCSS` to a file next to the model. Do **not** put the backup inside `_AssetsTK`, which is uploaded.
+3. Write theme + kit into `tkusercss.css`. Model-specific rules go after the kit, under their own prefix.
+4. Replace FastTrackCSS with a one-line comment that says where the CSS went, so nothing loads twice: `StylesInModel.allinstances->first.FastTrackCSS := '/* moved to <Model>_AssetsTK/Content/tkusercss.css */'`.
+5. Save, restart the prototype and hard-refresh (Ctrl+F5). The file URL carries the Turnkey version (`?v=7.2...`), not a content hash, so browsers keep the old copy.
+6. Compare the computed styles of a few pages against measurements taken before the move. On ecommerce the product grid measured identically.
+
+Spacing on containers (`gap`, `margin`, `padding`) has no `!important` in the kit, so values set in the Designer win. Layout rules that fight Turnkey defaults keep it: card list wrapping, card and image sizes, clamps, KPI tile sizes, and the grid image swap.
+
+FastTrackCSS is still an option when there is no file access. It is one model string:
+- If `StylesInModel.allinstances->size` is 0, create it first: `let s=StylesInModel.Create in (s.EnsureStyleTargets(); 'created')`.
+- Write it with `StylesInModel.allinstances->first.FastTrackCSS := '<css>'`. Escape `\` and `'`, keep single quotes out of the CSS, and read the length back.
+- It is served at `/Turnkey/StylesInModelCss`.
+
+Every style change, in either place or on a column, shows only after the model is saved **and** the prototype restarted. A browser refresh alone shows the old page.
+
+**Before deleting a class to test something, check that it has a rule.** A class with no rule changes nothing.
+- To find leftovers, compare the classes used on columns and containers (`Column.StyleRef`, and the quoted names in `PlacingContainer.StyleExpression`) with the `.ui-` selectors in the CSS.
+- `primary`, `flat` and `h3` are Turnkey built-ins, not leftovers.
+- A model's copy of the CSS may drop kit classes it does not use. The full kit stays here.
 
 ## Theme
 
@@ -57,8 +80,7 @@ The kit adds its own ordinary-colour variables: `--ui-accent`, `--ui-soft`, `--u
 | `ui-card` | Card container of a list nesting | Fixed-width card, hover lift, full width on phones |
 | `ui-card-title`, `ui-card-img` | Columns inside a card | One-line bold title; 160px cover image |
 | `ui-notice`, `ui-badge`, `ui-status` | Static text column | Message banner; rounded pill (e.g. cart count); small accent status text in a row or card |
-| `ui-kpi-row`, `ui-kpi-card` | Wrapping Row container; small Column container per card inside it | KPI card with accent edge, shadow, two per row on phones |
-| `ui-kpi-value` | The one static text column inside a card | Large bold value; the column's own label becomes the small uppercase caption, with its `Icon` |
+| `ui-kpi-row`, `ui-kpi-card` | Wrapping Row container; small Column container per card inside it | KPI card with accent edge, shadow, two per row on phones. The card styles its content: the value column needs no class of its own. Its text becomes the large bold number, and its label the small uppercase caption with its `Icon` |
 | `ui-kpi-good`, `ui-kpi-warn`, `ui-kpi-bad` | Added to the card's style | Green, amber or red edge and tint |
 | `ui-section` | Static text column | Section heading above a row of cards |
 | `ui-kpi` | Read-only value column in a wrapping row | Plain one-column tile (field label on top); use the card above for dashboards |
@@ -81,7 +103,7 @@ p.StyleExpression := '\'ui-panel ui-form-body\''                       -- contai
 
 **Details or edit modal.** One ViewModel for new and edit, opened with `ViewModelIsModal := true` and `ViewModelExecuteExpressionAfterModalOk := 'selfVM.Save'`. Body: `Body (Row, Wrap, 'ui-panel ui-form-body')` holding `PhotoBox ('ui-form-photo')` and `Info ('ui-form-info')`, with the field containers inside `Info`. Do not open a modal from inside a modal.
 
-**KPI cards (dashboard).** Per section: a static heading (`ui-section`), then a wrapping Row container (`'ui-kpi-row'`) whose children are one small Column container per card. Each card holds one static text column styled `ui-kpi-value`: `Expression := '(<number>).asString'`, `PresentationString := 'Awaiting payment'`, tags `Icon` and `IconPosition = after`. Turnkey draws a static text column's label above its text and puts the icon inside that label, so the label is the caption.
+**KPI cards (dashboard).** Per section: a static heading (`ui-section`), then a wrapping Row container (`'ui-kpi-row'`) whose children are one small Column container per card. Each card holds one static text column with **no style** of its own (the card container styles it): `Expression := '(<number>).asString'`, `PresentationString := 'Awaiting payment'`, tags `Icon` and `IconPosition = after`. Turnkey draws a static text column's label above its text and puts the icon inside that label, so the label is the caption.
 
 Do not use a second static column for the caption. A static column with an `Icon` tag and an empty `PresentationString` shows its column name, split into words, as a label (a column named `DelFailedLabel` displayed "Del Failed Label" above the caption; reported from a running app). Any static text column that carries an icon needs a real `PresentationString`. A plain read-only field styled `ui-kpi` looks like a form input, not a card; that is the "plain" look to avoid.
 

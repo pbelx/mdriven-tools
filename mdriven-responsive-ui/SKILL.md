@@ -10,7 +10,7 @@ Read the sibling [evaluator skill](../mdriven-eval/SKILL.md) for transport and t
 ## What MDriven offers
 
 1. **Placing containers are flexbox.** `Wrap` and `Grow` give basic reflow. The wiki's [PlacingContainer](https://wiki.mdriven.net/Documentation%3APlacingContainer) page recommends CSS media queries for anything beyond that; there are no breakpoint properties on containers.
-2. **Media queries in the model's CSS.** `StylesInModel.allinstances->first.FastTrackCSS` accepts `@media (max-width:768px) { ... }`. This is the main tool.
+2. **Media queries in the model's CSS.** Put them in `<Model>_AssetsTK/Content/tkusercss.css` when the model uses it (see the [UI kit install](../mdriven-ui-kit/SKILL.md#install)); otherwise `StylesInModel.allinstances->first.FastTrackCSS` accepts `@media (max-width:768px) { ... }`. This is the main tool.
 3. **Screen-size variables.** If a ViewModel declares `vIsMobileDevice`, or `vClientScreenWidth` and `vClientScreenHeight`, Turnkey sets them ([VIsMobileDevice](https://wiki.mdriven.net/Documentation%3AVIsMobileDevice), [VClientScreenWidth](https://wiki.mdriven.net/Documentation%3AVClientScreenWidth)). Use them in visible or style expressions to switch layouts in the model. **Not yet verified:** whether they update on resize or rotation, and whether they are set in a ViewModel mounted inside another.
 
 Prefer CSS for layout changes. They react instantly to rotation and do not touch behaviour. Use the variables when content must differ, for example a card list instead of a table.
