@@ -1,6 +1,6 @@
 ---
 name: mdriven-ui-kit
-description: Give MDriven Turnkey pages a consistent look with a reusable stylesheet (cards, card lists, KPI tiles, panels, toolbars, modal form bodies, thumbnails, text clamps) and a colour theme set through Turnkey's CSS variables, installed in the model's tkusercss.css (preferred) or its FastTrackCSS. Use when a page looks plain or "off", when starting the styling of a new model, when the app needs a brand colour, when cards, modals or grids from one model should be reused in another, or when list columns appear in the wrong order.
+description: Give MDriven Turnkey pages a consistent look with a reusable stylesheet (cards, card lists, KPI tiles, panels, toolbars, modal form bodies, thumbnails, text clamps) and a colour theme set through Turnkey's CSS variables, installed in the model's tkusercss.css (preferred) or its FastTrackCSS, with text and box styles optionally moved into Designer styles (Styles editor). Use when a page looks plain or "off", when starting the styling of a new model, when the app needs a brand colour, when cards, modals or grids from one model should be reused in another, or when list columns appear in the wrong order.
 ---
 
 # MDriven UI Kit
@@ -12,7 +12,7 @@ Files in this folder:
 - [`ui-kit.css`](ui-kit.css): the generic kit. Do not put model-specific names in it.
 - [`theme-purple.css`](theme-purple.css): an example theme. Copy it and change the values for another colour.
 
-**Status.** The class catalogue was adapted from a working model (mavuno) and installed in a second one (ecommerce) with zero model errors. The Turnkey facts under "How Turnkey applies styles" were read from rendered pages. Seen in the running app: the purple theme (top bar, buttons, focus), titles, toolbar, and the grid photo/URL fallback. KPI tiles were seen running on the ecommerce dashboard. Not yet seen running: the card image overlay, form/modal body, badge and status classes. Check those and update this line. Installing through `tkusercss.css` was verified on ecommerce on 2026-11-23: the file was served, it loaded before the model CSS, and the pages measured the same.
+**Status.** The class catalogue was adapted from a working model (mavuno) and installed in a second one (ecommerce) with zero model errors. The Turnkey facts under "How Turnkey applies styles" were read from rendered pages. Seen in the running app: the purple theme (top bar, buttons, focus), titles, toolbar, and the grid photo/URL fallback. KPI tiles were seen running on the ecommerce dashboard. Badge and notice were seen running on ecommerce; panels, titles and section headings were seen as Designer styles on 2026-11-24. Not yet seen running: the card image overlay, form/modal body and status classes. Check those and update this line. Installing through `tkusercss.css` was verified on ecommerce on 2026-11-23: the file was served, it loaded before the model CSS, and the pages measured the same.
 
 ## Install
 
@@ -141,9 +141,62 @@ let p=<container> in ((let c=p.Columns->select(c|c.Name='Photo')->first in (p.Co
 
 `Column.ErrorText` stays empty for an invalid expression. The model error list does report it, a moment later: after a change, run one more read and look at the evaluator's `errors` (for example `"<Page>:Invalid expression <Column> ..."`). To test whether an expression type-checks, set it on a throwaway column, read the errors after a short pause, then delete the column.
 
-## Named styles in the model
+## Designer styles (Styles editor)
 
-A model can also hold named style definitions (border, radius, padding, fill, max size) used as `selfVM.Styles.<Name>` with `StyleRefIsExpression := true`, or in a container `StyleExpression` such as `selfVM.Styles.Card + ' my-class'`. They were read from a working model's file; creating them through MCP has **not** been worked out. Prefer the kit classes, which are plain text and copy between models.
+A model can also hold named styles that the Designer edits in its Styles editor. The Designer turns them into CSS served at `/Turnkey/StylesInModelCss`, which loads **after** `tkusercss.css`, so a Designer style wins where both set the same property. A column's `StyleRef` or a container's `StyleExpression` names a Designer style exactly as it names a kit class. Nothing in the ViewModels changes when a class moves from the CSS file into a Designer style.
+
+Verified on ecommerce (`ecommerce-v3-styles-edit`, 2026-11-24): created through MCP, generated CSS read back, pages measured against the CSS-only version while logged in as admin and as a customer.
+
+### What fits and what does not
+
+A style stores per target: padding, margin and border width per side, radius per corner, min/max width and height, alignment, shadow, animation, fill (background), stroke (border) and font colour from the model's colour list, and font family, size, bold, italic and underline. There are scaling factors per screen size (small, medium, large), but no layout changes.
+
+- **Fits:** text styles (`ui-title`, `ui-subtitle`, `ui-muted`, `ui-strong`, `ui-accent`, `ui-status`, `ui-section`), `ui-panel`, and the box look of `ui-badge` and `ui-notice`.
+- **Stays in the CSS file:** flex wrap and gap, flex sizing, `:hover`, transitions, `:has()`, descendant rules (`label .mi`), `object-fit`, ellipsis and `white-space`, `text-transform` and `letter-spacing`, `box-sizing`, the grid `colname` rules, and every phone layout change. A border has one colour for all sides, so the KPI tile's grey border with a coloured left stripe stays in CSS.
+- On ecommerce, moving everything that fits took 37 of 200 declarations (about 20 %). The kit is mostly layout. Keep the layout in `tkusercss.css` and use Designer styles for text and boxes that people want to edit visually.
+
+### Creating them through MCP
+
+`StylesInModel` owns `StyleDefinitions` (a `Name`), each with `StyleTargets`. A target has a `StyleTargetType`, one of `component`, `componentcontent`, `componentlabel`, `gridcell`, `gridcellcontent`, `gridheader`, `placingcontainer`. Colours are `StyleColorProperties` (`Name`, `R`, `G`, `B`, `A`, `IsThemeColor`) in `StylesInModel.StyleColorProperties`. Fonts are `StyleFontProperties` (`Size`, `Bold`, ...) in `StylesInModel.StyleFontProperties`, linked from a target. Use `MCPServerInfo.MetaModelMetaInfo('StyleTarget')` for the full attribute list.
+
+```ocl
+let s=StylesInModel.allinstances->first in (
+  let c=StyleColorProperties.Create in (c.Name:='UiBorder'; c.R:=229; c.G:=231; c.B:=235; c.A:=255; s.StyleColorProperties.Add(c));
+  'colour')
+
+let s=StylesInModel.allinstances->first in (
+  let d=StyleDefinition.Create in (d.Name:='ui-panel'; s.StyleDefinitions.Add(d);
+    let t=StyleTarget.Create in (
+      t.StyleTargetType:=StyleTargetType.allinstances->select(x|x.Name='placingcontainer')->first;
+      t.PaddingTop:=20; t.PaddingRight:=20; t.PaddingBottom:=20; t.PaddingLeft:=20;
+      t.BorderTop:=1; t.BorderRight:=1; t.BorderBottom:=1; t.BorderLeft:=1;
+      t.BorderTopLeftRadius:=16; t.BorderTopRightRadius:=16; t.BorderBottomLeftRadius:=16; t.BorderBottomRightRadius:=16;
+      t.StyleColorPropertiesFill:=StyleColorProperties.allinstances->select(c|c.Name='UiWhite')->first;
+      t.StyleColorPropertiesStroke:=StyleColorProperties.allinstances->select(c|c.Name='UiBorder')->first;
+      d.StyleTargets.Add(t)));
+  'style')
+```
+
+For a text style use target type `componentcontent` and attach a font: `let f=StyleFontProperties.Create in (f.Size:=16; f.Bold:=true; s.StyleFontProperties.Add(f); t.StyleFontProperties:=f)`. A style for a field box (badge, notice) gets two targets: `component` for the box, `componentcontent` for the text.
+
+The new style shows in the Styles editor at once. The page shows it after save and restart. A normal refresh is then enough, because the URL carries a fresh `?unique=` number. Changes to `tkusercss.css` still need Ctrl+F5.
+
+### What the generated CSS looks like
+
+- `placingcontainer` → `.tk-placingcontainer.<name> { ... }`.
+- `component` → `.tk-component.<name>:not(.isgridrowdiv *):not(:has(img)) { ... }`, plus a copy for `img.<name>`.
+- `componentcontent` → one rule each for `input.<name>`, `.tk-select__native.<name>`, `.tk-button__native.<name>` and `.tk-static-text__native.<name>`, all inside `.tk-component.<name>:not(.isgridrowdiv *)`. Grid cells are excluded, and the field label is not styled.
+- Values are written in px and rounded: 25.6 became 26px.
+
+### Pitfalls
+
+- **Always set a font size on a text target.** A target with font properties but no size is written as `font-size: 0px`, and the text disappears.
+- **Weight is bold on or off.** `FontWeight` text (`Bold`, `SemiBold`) is ignored and written as `font-weight: normal`. Set `Bold := true`. There is no 600 weight.
+- **A text target also writes** `text-align: left; vertical-align: text-top; font-style: normal`. A centred or right-aligned field turns left-aligned.
+- **A theme colour needs `--` in its name.** `IsThemeColor := true` writes the colour into `:root` as `<Name>: r, g, b;`. Named `primary-color` it was ignored by the browser. Named `--primary-color` it sets Turnkey's variable.
+- **A style setting does not beat an `!important` in the CSS file.** Remove the rule from `tkusercss.css` when a class moves to the Designer, keeping only what the Designer cannot express (for example `box-sizing`). Back up the file outside `_AssetsTK` first.
+- **Screen-size scaling is empty by default** and the tablet and desktop blocks in the generated CSS stay empty. Phone layout belongs in the CSS file (see [responsive UI](../mdriven-responsive-ui/SKILL.md)).
+- **Checking a style.** Fetch `/Turnkey/StylesInModelCss` and read the rule. Then measure the page's computed styles, logged in where the page needs it, against the version before the move.
 
 ## Verify
 
