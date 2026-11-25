@@ -1,6 +1,6 @@
 ---
 name: mdriven-access-groups
-description: Hide or disable MDriven Turnkey menu actions, menu dropdowns and pages by user role with AccessGroups (VisibleExpression/EnableExpression), and plan which actions go in which group. Use when admin menus show for customers, when menu entries are greyed out instead of hidden, when AutoForms are visible to everyone, or when setting up admin/customer roles. Covers what MCP can and cannot do (groups yes, membership no).
+description: Hide or disable MDriven Turnkey menu actions, menu dropdowns and pages by user role with AccessGroups (VisibleExpression/EnableExpression), and plan which actions go in which group. Use when admin menus show for customers, when menu entries are greyed out instead of hidden, when AutoForms are visible to everyone, or when setting up admin/customer roles, when a customer or visitor can open an admin page by URL, or when Turnkey shows "Error 404 for AccessDenied". Covers what MCP can and cannot do (groups yes, membership no) and which pages ExpressionForAccess really protects.
 ---
 
 # MDriven Access Groups
@@ -45,7 +45,32 @@ Which group each action goes in:
 | File/Edit (Save, Refresh, Exit, Undo, Redo) | none |
 | One-time bootstrap actions (e.g. "make first admin", enabled only while no admin exists) | none, or delete once used |
 
-Hiding the menu entry does **not** protect the page. Also set `Span.ExpressionForAccess` on each admin ViewModel, for example `SysSingleton.oclSingleton.CurrentUser.IsAdmin=true`. This blocks a direct URL or a `selfVM.Navigate` from a customer page.
+## Protecting pages, not just menus
+
+Hiding the menu entry does **not** protect the page: anyone can type its URL (`/App#/<ViewModel>/$null$`).
+
+`Span.ExpressionForAccess` (the ViewModel's AccessExpression) is a **rooted** expression. The wiki says it is evaluated against the page's root object. **Verified (Turnkey 7.2.0.17712 prototype, ecommerce model, 2026-11-26)** by opening pages by URL in headless Edge:
+
+| Page | Logged-in customer | Logged out |
+| --- | --- | --- |
+| Rooted pages opened on a record (`CustomerView/10`, `CategoryView/2`, `OrderView/100`) with a staff-only `ExpressionForAccess` | Refused, sent to `AccessDenied` | not tested |
+| Unrooted pages (`RequiresRootObject=false`, URL ends `$null$`) with the same kind of rule | **Shown, with all data** | **Shown, with all data** |
+
+So `ExpressionForAccess` alone does **not** protect dashboards, seekers and admin lists. For unrooted pages, put the ViewModel in an access group (ticked in the Designer, see below); the wiki says groups control ViewModel access as well as actions. Retest by URL as a customer and as a visitor after the user ticks them; this route is not yet verified. Keep `ExpressionForAccess` on rooted pages, where it works and can check the record (for example `(…IsStaffUser=true) or (self.Customer = SysSingleton.oclSingleton.CurrentUser.Customer)`).
+
+### The AccessDenied page
+
+When a page refuses access, Turnkey navigates by itself to a ViewModel named **`AccessDenied`** (`/mvc/AccessDenied/$null$`). If the model has none, the user sees the model's error page with "Error 404 for AccessDenied". Create it as an unrooted ViewModel with **no** access rule:
+
+```ocl
+-- Span: Name 'AccessDenied', Class SysSingleton, RequiresRootObject false, ExpressionForAccess empty
+-- Title (static, ui-title):  'Access denied'
+-- Message (static):          if SysSingleton.oclSingleton.CurrentUser->isEmpty then 'Please log in to see this page.' else 'Your account does not have access to this page.' endif
+-- LogIn button (visible when logged out): selfVM.NavigateUrl('/Account/Login', false)
+-- GoShop / GoDashboard buttons, visible by role: selfVM.Navigate(Product.nullValue, Product.ViewModels.Catalogue)
+```
+
+The name must be exactly `AccessDenied`.
 
 ## What MCP can and cannot do
 
@@ -54,8 +79,8 @@ Hiding the menu entry does **not** protect the page. Also set `Span.ExpressionFo
 | Create a group, set its expressions | Works: `let g=AccessGroup.Create in (g.Name:='AdminOnly'; g.VisibleExpression:='…'; g.EnableExpression:='…'; 'group')` |
 | Read membership | Works: `AccessGroup.allinstances->collect(g|g.Name.concat(': ').concat(g.AbstractActions->collect(a|a.Name)->asCommaList))` |
 | Add an action to a group | **Fails** in every form tried, see below. Do it in the Designer |
-| Add a ViewModel to a group | **Fails** too (`span.AccessGroups.Add(g)` and `g.ViewModels.Add(span)`). Use `Span.ExpressionForAccess`, which works, or tick it in the Designer |
-| Page access (`Span.ExpressionForAccess`) | Works |
+| Add a ViewModel to a group | **Fails** too (`span.AccessGroups.Add(g)`, `g.ViewModels.Add(span)`, and creating the link class `SpanViewModelsAccessGroupAccessGroups`: "Operation set_AsObject failed"). Tick it in the Designer |
+| Page access (`Span.ExpressionForAccess`) | Can be set. At runtime it blocks **rooted** pages only (see above) |
 
 Membership attempts that failed:
 
@@ -78,7 +103,10 @@ So the agent creates the groups and the page access rules, then gives the user a
 
 ## Checklist when adding a new admin page
 
-- [ ] `Span.ExpressionForAccess` set on the ViewModel.
+- [ ] Rooted page: `Span.ExpressionForAccess` set on the ViewModel.
+- [ ] Unrooted page: tell the user to tick the **ViewModel** into the admin group too; `ExpressionForAccess` won't stop a direct URL.
+- [ ] The model has an `AccessDenied` ViewModel with no access rule.
 - [ ] The GlobalAction is in the right MenuGroup.
-- [ ] Tell the user to tick it in **AdminOnly**. Until then it shows, greyed out, to customers.
+- [ ] Tell the user to tick the action in **AdminOnly**. Until then it shows, greyed out, to customers.
 - [ ] After the user saves, read the membership back to confirm.
+- [ ] Open the page by URL as a customer and logged out (headless Edge, see the [actions skill](../mdriven-actions-navigation/SKILL.md)) and confirm it goes to Access denied.

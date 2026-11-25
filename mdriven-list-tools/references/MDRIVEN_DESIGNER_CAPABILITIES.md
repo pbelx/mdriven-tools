@@ -130,6 +130,17 @@ Finally, save with `Ctrl+S`, reopen the model, and verify that `Association.alli
 
 After an MCP mutation, explicitly save the model in Designer with `Ctrl+S`.
 
+### Creating classes and subclasses
+
+Observed while adding role classes to the ecommerce model (2026-11-25):
+
+- **A new class needs a package too.** A class created with `Class.Create` but no package gave no error on its own, but the first association to it broke the model: `Failed to convert designtime model to a runtime model … Issue with Association <Name> … The given key was not present in the dictionary.` Set `c.Package_ := Package.allinstances->select(p|p.Name='Package1')->first` (pick the package by name; `Package.allinstances->first` was `AuthenticationPackage` in that model). Check with `Class.allinstances->select(c|c.Package_->isEmpty)`.
+- **Subclass:** `c.Superclass := <parent class>`. The parent's subclasses then show in `parent.Subclasses`.
+- **Attribute of a model type:** setting `a.AttributeType := '<TypeName>'` also fills the `a.Type` link (verified with an enumeration).
+- **`OnCreate` on a class that has no superclass** must not start with `self.base.OnCreate`: that gives `"OnCreate" is not a member of "ECOModelRoot"`. Classes from the authentication pattern (such as `SysUser`) do have a base `OnCreate`.
+- **Diagram placement:** a created class is on no diagram. `PlacedClass.Create` with `Class`, `Diagram`, `x`, `y` places it. In one run the Designer had already placed the new classes on the open diagram, stacked at `x=100, y=100`; check `PlacedClass.allinstances->select(p|p.Class.Name='<Name>')` before placing and move the existing one instead. Lines for the new associations still need `RestoreAssociations()` (above) or `AssociationEndConnection` pairs.
+- **Changes live only in the open Designer until the user saves.** If the Designer is closed without saving, all MCP edits are lost and must be redone; keep edits in a re-runnable script.
+
 ## Evaluator response envelope
 
 Evaluator results are nested JSON. The outer text object contains:
