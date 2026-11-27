@@ -103,6 +103,8 @@ The working model opens the same ViewModel as a modal for both. The edit action 
 - An empty image column with a fixed-height style still takes its space. Hide it (visibility or the hide class) instead of leaving it empty.
 - `->isEmpty` / `->notEmpty` on a non-nullable `Blob` do not tell whether a picture was uploaded (see above).
 - A new column is appended to the end of its list or container; setting `PCIndex` does not move it. Reorder by re-adding (see the UI kit skill, "Column order").
+- **Copying a column's style:** copy `StyleRefIsExpression` together with `StyleRef`. A new column created with `StyleRef := 'selfVM.Styles.ProfilePhoto'` but the flag left false rendered the literal class `selfVM.Styles.ProfilePhoto`, so the style never applied (seen in the DOM, ecommerce v8, 2026-11-27). Also set `PresentationString := ''` on an image column, or Turnkey shows its name as a label above the picture.
+- **Adding a URL fallback to someone else's card:** Turnkey gives every component a class `<Nesting>_<Column>` (for example `AllProducts_Image`, `AllProducts_ImageLink`). Without changing their column styles, CSS can show one image per card: hide `.X_ImageLink:has(img:not([src]))`, and hide the photo with `.tk-placingcontainer:has(> .X_ImageLink img[src]:not([src=""])) > .X_Image`. Not yet seen in the running app.
 
 ## Verify
 
